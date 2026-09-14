@@ -15,10 +15,10 @@ const SKILLS: Skill[] = [
     tags: ["React", "Vite", "Node", "REST"],
   },
   {
-    mark: "C#",
-    name: "C#",
-    desc: "APIs em ASP.NET Core com Minimal APIs e Entity Framework Core. Regras de negócio, validação e persistência.",
-    tags: [".NET 8", "ASP.NET Core", "EF Core", "SQLite"],
+    mark: "J",
+    name: "Java",
+    desc: "APIs com Spring Boot: regras de negócio, persistência e integrações seguindo boas práticas de orientação a objetos.",
+    tags: ["Spring Boot", "Maven", "REST", "JPA"],
   },
   {
     mark: "F",
