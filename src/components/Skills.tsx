@@ -1,30 +1,86 @@
+import type { IconType } from "react-icons";
+import {
+  SiCss,
+  SiDart,
+  SiFlutter,
+  SiGit,
+  SiGithub,
+  SiHtml5,
+  SiJavascript,
+  SiMysql,
+  SiOpenjdk,
+  SiReact,
+  SiRubyonrails,
+  SiSpringboot,
+  SiVuedotjs,
+} from "react-icons/si";
 import { useReveal } from "../hooks/useReveal";
 
+type Tag = {
+  label: string;
+  icon?: IconType;
+};
+
 type Skill = {
-  mark: string;
+  icon: IconType;
   name: string;
   desc: string;
-  tags: string[];
+  tags: Tag[];
 };
 
 const SKILLS: Skill[] = [
   {
-    mark: "TS",
-    name: "TypeScript",
-    desc: "Front-ends em React e APIs em Node com tipagem forte de ponta a ponta. Tooling moderno com Vite.",
-    tags: ["React", "Vite", "Node", "REST"],
+    icon: SiFlutter,
+    name: "Mobile",
+    desc: "Apps multiplataforma (Android e iOS) a partir de uma única base de código.",
+    tags: [
+      { label: "Dart", icon: SiDart },
+      { label: "Flutter", icon: SiFlutter },
+    ],
   },
   {
-    mark: "J",
-    name: "Java",
-    desc: "APIs com Spring Boot: regras de negócio, persistência e integrações seguindo boas práticas de orientação a objetos.",
-    tags: ["Spring Boot", "Maven", "REST", "JPA"],
+    icon: SiReact,
+    name: "Front-end",
+    desc: "Interfaces web modernas, consumindo APIs RESTful.",
+    tags: [
+      { label: "React", icon: SiReact },
+      { label: "Vue.js", icon: SiVuedotjs },
+      { label: "JavaScript", icon: SiJavascript },
+      { label: "HTML", icon: SiHtml5 },
+      { label: "CSS", icon: SiCss },
+    ],
   },
   {
-    mark: "F",
-    name: "Flutter",
-    desc: "Apps mobile multiplataforma a partir de uma única base de código, com foco em UI fluida e responsiva.",
-    tags: ["Dart", "iOS", "Android", "Material"],
+    icon: SiSpringboot,
+    name: "Back-end",
+    desc: "APIs e regras de negócio, com foco em código limpo e testado.",
+    tags: [
+      { label: "Java", icon: SiOpenjdk },
+      { label: "Spring Boot", icon: SiSpringboot },
+      { label: "Ruby on Rails", icon: SiRubyonrails },
+      { label: "REST" },
+    ],
+  },
+  {
+    icon: SiMysql,
+    name: "Dados",
+    desc: "Modelagem, consultas e dashboards para indicadores de negócio.",
+    tags: [
+      { label: "MySQL", icon: SiMysql },
+      { label: "Power BI" },
+      { label: "Excel avançado" },
+    ],
+  },
+  {
+    icon: SiGit,
+    name: "Ferramentas",
+    desc: "Versionamento e organização de trabalho em times ágeis.",
+    tags: [
+      { label: "Git", icon: SiGit },
+      { label: "GitHub", icon: SiGithub },
+      { label: "Scrum" },
+      { label: "Kanban" },
+    ],
   },
 ];
 
@@ -51,6 +107,7 @@ export function Skills() {
 
 function SkillCard({ skill, delay }: { skill: Skill; delay: number }) {
   const { ref, className } = useReveal<HTMLDivElement>();
+  const Icon = skill.icon;
 
   return (
     <article
@@ -58,15 +115,21 @@ function SkillCard({ skill, delay }: { skill: Skill; delay: number }) {
       className={`skill-card ${className}`}
       style={{ transitionDelay: `${delay}ms` }}
     >
-      <span className="skill-card__mark">{skill.mark}</span>
+      <span className="skill-card__mark">
+        <Icon aria-hidden="true" />
+      </span>
       <h3 className="skill-card__name">{skill.name}</h3>
       <p className="skill-card__desc">{skill.desc}</p>
       <div className="skill-card__tags">
-        {skill.tags.map((t) => (
-          <span key={t} className="tag">
-            {t}
-          </span>
-        ))}
+        {skill.tags.map((tag) => {
+          const TagIcon = tag.icon;
+          return (
+            <span key={tag.label} className="tag">
+              {TagIcon ? <TagIcon aria-hidden="true" /> : null}
+              {tag.label}
+            </span>
+          );
+        })}
       </div>
     </article>
   );

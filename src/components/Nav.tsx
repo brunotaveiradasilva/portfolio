@@ -7,6 +7,7 @@ const LINKS = [
   { href: "#experiencia", label: "Experiência" },
   { href: "#educacao", label: "Educação" },
   { href: "#contato", label: "Contato" },
+  { href: "#curriculo", label: "Currículo" },
 ];
 
 export function Nav() {

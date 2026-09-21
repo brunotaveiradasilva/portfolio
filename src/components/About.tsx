@@ -12,15 +12,16 @@ export function About() {
           <div className="about__body">
             <p className="eyebrow">Sobre</p>
             <p>
-              Gosto de transformar problemas confusos em software simples de
-              usar.
+              Cerca de 2 anos construindo aplicações mobile e web, do Flutter
+              ao front-end.
             </p>
             <p>
-              Trabalho o produto de ponta a ponta: modelo os dados e a API,
-              cuido das regras de negócio e entrego uma interface limpa e
-              rápida. Sou pragmático com a stack — escolho a ferramenta certa
-              para cada camada e mantenho o código legível para quem vem
-              depois.
+              Atuei com Flutter, integração de APIs RESTful e banco de dados
+              MySQL. Hoje trabalho com análise de dados, o que reforçou minha
+              visão de negócio e de indicadores — e estou voltando a focar em
+              desenvolvimento, aprofundando React, Java e Spring, sempre com
+              código limpo, versionado e bem testado. Sou graduando em Análise
+              e Desenvolvimento de Sistemas na UCDB.
             </p>
           </div>
 
