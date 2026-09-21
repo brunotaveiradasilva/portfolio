@@ -44,7 +44,7 @@ export function Projects() {
   const head = useReveal<HTMLDivElement>();
 
   return (
-    <section className="section section--dark" id="projetos">
+    <section className="section" id="projetos">
       <div className="container">
         <div ref={head.ref} className={`projects__head ${head.className}`}>
           <p className="eyebrow">Projetos</p>

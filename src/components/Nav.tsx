@@ -1,4 +1,5 @@
 import { useState } from "react";
+import logoMark from "../assets/logo-mark.png";
 
 const LINKS = [
   { href: "#sobre", label: "Sobre" },
@@ -17,6 +18,7 @@ export function Nav() {
     <nav className="nav">
       <div className="nav__inner">
         <a href="#top" className="nav__brand">
+          <img src={logoMark} alt="" className="nav__logo" />
           Bruno Taveira
         </a>
         <ul className={`nav__links ${open ? "is-open" : ""}`}>

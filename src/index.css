@@ -1,26 +1,33 @@
 /* ==========================================================================
    Bruno Taveira — Portfólio
-   Design inspirado no portfólio do Nicolas Yamada (nicyamada.com):
-   tema escuro, tipografia bold em caixa alta, contraste preto e branco,
-   timeline de experiência, cards com contorno.
+   Tema preto e amarelo: fundo escuro, amarelo como cor de destaque
+   principal, toques raros de vermelho pra dar vida.
    ========================================================================== */
 
 :root {
-  --bg: #08080a;
-  --bg-alt: #0e0e11;
-  --bg-elev: #17171b;
-  --bg-elev-hover: #1e1e23;
+  --bg: #0d0d0d;
+  --bg-alt: #161510;
+  --bg-elev: #1b1a15;
+  --bg-elev-hover: #221f18;
 
-  --text: #f5f5f7;
-  --text-secondary: #9c9ca4;
-  --text-tertiary: #5c5c64;
+  --text: #f7f5ef;
+  --text-secondary: #a8a49a;
+  --text-tertiary: #726e63;
 
-  --accent: #ffffff;
-  --accent-contrast: #08080a;
+  --accent: #ffc400;
+  --accent-hover: #e6b100;
+  --accent-contrast: #17140a;
+  --accent-soft: rgba(255, 196, 0, 0.14);
+  --accent-soft-border: rgba(255, 196, 0, 0.5);
 
-  --hairline: rgba(255, 255, 255, 0.12);
-  --hairline-strong: rgba(255, 255, 255, 0.28);
+  --accent-red: #ea1d2c;
+
+  --hairline: rgba(255, 255, 255, 0.1);
+  --hairline-strong: rgba(255, 255, 255, 0.2);
   --nav-h: 64px;
+
+  --shadow-card: 0 2px 16px rgba(0, 0, 0, 0.35);
+  --shadow-card-hover: 0 16px 32px rgba(0, 0, 0, 0.45);
 
   --radius-lg: 28px;
   --radius-md: 18px;
@@ -68,7 +75,7 @@ a {
 }
 
 ::selection {
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 196, 0, 0.28);
 }
 
 /* ---------- Layout helpers --------------------------------------------------- */
@@ -97,15 +104,16 @@ a {
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.14em;
-  color: var(--text-secondary);
+  color: var(--accent);
   margin-bottom: 16px;
 }
 
 .eyebrow::before {
   content: "";
   width: 22px;
-  height: 1px;
-  background: var(--text-secondary);
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent);
 }
 
 .section-title {
@@ -171,8 +179,8 @@ a {
 }
 
 .btn:hover {
-  background: transparent;
-  color: var(--text);
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
   transform: scale(1.02);
 }
 
@@ -183,9 +191,10 @@ a {
 }
 
 .btn--ghost:hover {
-  background: var(--accent);
-  color: var(--accent-contrast);
+  background: var(--accent-soft);
+  color: var(--accent);
   border-color: var(--accent);
+  transform: scale(1.02);
 }
 
 .link-arrow {
@@ -220,8 +229,9 @@ a {
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.03em;
-  color: var(--text-secondary);
-  border: 1px solid var(--hairline-strong);
+  color: var(--text);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-soft-border);
   border-radius: 980px;
   padding: 6px 13px;
 }
@@ -242,9 +252,9 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(8, 8, 10, 0.72);
-  backdrop-filter: saturate(140%) blur(20px);
-  -webkit-backdrop-filter: saturate(140%) blur(20px);
+  background: rgba(13, 13, 13, 0.75);
+  backdrop-filter: saturate(160%) blur(20px);
+  -webkit-backdrop-filter: saturate(160%) blur(20px);
   border-bottom: 1px solid var(--hairline);
 }
 
@@ -258,6 +268,9 @@ a {
 }
 
 .nav__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
   font-family: var(--font-display);
   font-size: 16px;
   font-weight: 700;
@@ -265,6 +278,12 @@ a {
   color: var(--text);
   white-space: nowrap;
   flex-shrink: 0;
+}
+
+.nav__logo {
+  height: 26px;
+  width: auto;
+  display: block;
 }
 
 .nav__links {
@@ -284,7 +303,7 @@ a {
 }
 
 .nav__links a:hover {
-  color: var(--text);
+  color: var(--accent);
 }
 
 .nav__toggle {
@@ -341,7 +360,12 @@ a {
   align-items: flex-start;
   justify-content: center;
   padding: calc(var(--nav-h) + 40px) 22px 60px;
-  background: radial-gradient(120% 90% at 80% 10%, #1c1c20 0%, #08080a 60%);
+  background: radial-gradient(
+      70% 60% at 86% 20%,
+      rgba(255, 196, 0, 0.16) 0%,
+      rgba(255, 196, 0, 0) 60%
+    ),
+    var(--bg);
   overflow: hidden;
 }
 
@@ -439,48 +463,104 @@ a {
   }
 }
 
-/* Gráfico decorativo em órbita */
-.orbit {
+/* Gráfico decorativo: computador minimalista */
+.hero-art {
   position: absolute;
   top: 50%;
-  right: -8%;
-  width: min(56vw, 640px);
-  height: min(56vw, 640px);
+  right: -6%;
+  width: min(46vw, 520px);
+  height: min(46vw, 520px);
   transform: translateY(-50%);
   z-index: 1;
-  opacity: 0.9;
   pointer-events: none;
 }
 
-.orbit__ring {
-  fill: none;
-  stroke: var(--hairline-strong);
-  stroke-width: 1;
+.hero-art__glow {
+  fill: var(--accent);
+  opacity: 0.1;
 }
 
-.orbit__ring--spin {
-  transform-origin: center;
-  animation: spin 40s linear infinite;
+.hero-art__glow--soft {
+  opacity: 0.06;
 }
 
-.orbit__ring--spin-rev {
-  transform-origin: center;
-  animation: spin 55s linear infinite reverse;
+.hero-art__group {
+  transform-origin: 200px 200px;
+  animation: floaty 5s var(--ease-out) infinite;
 }
 
-.orbit__dot {
+.hero-art__monitor {
+  fill: var(--bg-elev);
+  stroke: var(--accent);
+  stroke-width: 7;
+  stroke-linejoin: round;
+}
+
+.hero-art__screen {
+  fill: var(--bg);
+}
+
+.hero-art__line {
+  fill: var(--accent);
+}
+
+.hero-art__line--dim {
   fill: var(--text-secondary);
+  opacity: 0.6;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
+.hero-art__cursor {
+  fill: var(--text);
+  animation: blink 1.1s step-end infinite;
+}
+
+.hero-art__stand {
+  fill: var(--bg-elev);
+  stroke: var(--accent);
+  stroke-width: 7;
+  stroke-linejoin: round;
+}
+
+.hero-art__power {
+  fill: var(--accent-red);
+}
+
+.hero-art__dot {
+  fill: var(--accent);
+}
+
+.hero-art__dot--dim {
+  fill: var(--text-tertiary);
+}
+
+.hero-art__spark {
+  fill: var(--accent);
+}
+
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  50%,
+  95% {
+    opacity: 0;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .orbit__ring--spin,
-  .orbit__ring--spin-rev {
+  .hero-art__group,
+  .hero-art__cursor {
     animation: none;
   }
   .hero__scroll::after {
@@ -489,10 +569,12 @@ a {
 }
 
 @media (max-width: 720px) {
-  .orbit {
-    opacity: 0.5;
-    right: -30%;
-    top: 62%;
+  .hero-art {
+    opacity: 0.6;
+    width: min(70vw, 420px);
+    height: min(70vw, 420px);
+    right: -14%;
+    top: 66%;
   }
 }
 
@@ -590,22 +672,31 @@ a {
   display: flex;
   flex-direction: column;
   min-height: 300px;
-  transition: border-color 0.25s ease, transform 0.25s ease;
+  box-shadow: var(--shadow-card);
+  transition: border-color 0.25s ease, transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .skill-card:hover {
-  border-color: var(--hairline-strong);
+  border-color: var(--accent-soft-border);
+  box-shadow: var(--shadow-card-hover);
   transform: translateY(-4px);
 }
 
 .skill-card__mark {
   display: inline-flex;
-  color: var(--text);
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-sm);
+  background: var(--accent-soft);
+  color: var(--accent);
 }
 
 .skill-card__mark svg {
-  width: 34px;
-  height: 34px;
+  width: 28px;
+  height: 28px;
 }
 
 .skill-card__name {
@@ -649,11 +740,14 @@ a {
   border: 1px solid var(--hairline);
   border-radius: var(--radius-md);
   overflow: hidden;
-  transition: border-color 0.25s ease, transform 0.25s ease;
+  box-shadow: var(--shadow-card);
+  transition: border-color 0.25s ease, transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .project-card:hover {
-  border-color: var(--hairline-strong);
+  border-color: var(--accent-soft-border);
+  box-shadow: var(--shadow-card-hover);
   transform: translateY(-4px);
 }
 
@@ -748,6 +842,7 @@ a {
   border: 1px solid var(--hairline);
   border-radius: var(--radius-md);
   padding: 26px 28px;
+  box-shadow: var(--shadow-card);
 }
 
 .timeline-item__role {
@@ -819,6 +914,7 @@ a {
   border: 1px solid var(--hairline);
   border-radius: var(--radius-md);
   padding: 30px 32px;
+  box-shadow: var(--shadow-card);
 }
 
 .edu-card__school {
@@ -929,7 +1025,7 @@ a {
 }
 
 .contact__social:hover {
-  color: var(--text);
+  color: var(--accent);
   border-color: var(--accent);
   transform: translateY(-3px);
 }
