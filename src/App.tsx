@@ -6,6 +6,7 @@ import { Projects } from "./components/Projects";
 import { Experience } from "./components/Experience";
 import { Education } from "./components/Education";
 import { Contact } from "./components/Contact";
+import { Resume } from "./components/Resume";
 import { Footer } from "./components/Footer";
 
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
         <Experience />
         <Education />
         <Contact />
+        <Resume />
       </main>
       <Footer />
     </>
