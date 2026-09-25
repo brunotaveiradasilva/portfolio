@@ -5,7 +5,7 @@ const GITHUB = "https://github.com/brunotaveiradasilva";
 const LINKEDIN = "https://www.linkedin.com/in/bruno-taveira/";
 
 export function Contact() {
-  const { ref, className } = useReveal<HTMLDivElement>();
+  const { ref, className } = useReveal<HTMLDivElement>("zoom");
 
   return (
     <section className="section contact" id="contato">

@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { useReveal } from "../hooks/useReveal";
 import sulbiologicHubShot from "../assets/sulbiologic-hub.png";
 import prummoShot from "../assets/prummo-engenharia.jpg";
@@ -71,13 +72,13 @@ export function Projects() {
 }
 
 function ProjectCard({ project, delay }: { project: Project; delay: number }) {
-  const { ref, className } = useReveal<HTMLAnchorElement>();
+  const { ref, className } = useReveal<HTMLAnchorElement>("zoom");
 
   return (
     <a
       ref={ref}
       className={`project-card ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
+      style={{ "--reveal-delay": `${delay}ms` } as CSSProperties}
       href={project.linkUrl}
       target="_blank"
       rel="noreferrer"

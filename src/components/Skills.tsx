@@ -14,6 +14,7 @@ import {
   SiSpringboot,
   SiVuedotjs,
 } from "react-icons/si";
+import type { CSSProperties } from "react";
 import { useReveal } from "../hooks/useReveal";
 
 type Tag = {
@@ -106,14 +107,14 @@ export function Skills() {
 }
 
 function SkillCard({ skill, delay }: { skill: Skill; delay: number }) {
-  const { ref, className } = useReveal<HTMLDivElement>();
+  const { ref, className } = useReveal<HTMLDivElement>("zoom");
   const Icon = skill.icon;
 
   return (
     <article
       ref={ref}
       className={`skill-card ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
+      style={{ "--reveal-delay": `${delay}ms` } as CSSProperties}
     >
       <span className="skill-card__mark">
         <Icon aria-hidden="true" />
