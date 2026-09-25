@@ -1,10 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 
+export type RevealVariant = "up" | "left" | "right" | "zoom";
+
 /**
  * Revela um elemento quando ele entra na viewport (efeito das páginas da Apple).
  * Retorna a ref pro elemento e o className a aplicar.
  */
-export function useReveal<T extends HTMLElement = HTMLDivElement>() {
+export function useReveal<T extends HTMLElement = HTMLDivElement>(
+  variant: RevealVariant = "up"
+) {
   const ref = useRef<T | null>(null);
   const [visible, setVisible] = useState(false);
 
@@ -33,8 +37,12 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>() {
     observer.observe(el);
 
     // Failsafe: se o observer não disparar (aba em segundo plano na carga,
-    // ambientes headless, etc.), garante que o conteúdo apareça mesmo assim.
-    const failsafe = window.setTimeout(() => setVisible(true), 2500);
+    // ambientes headless, etc.), revela só o que já está na tela — o resto
+    // continua esperando a rolagem pra animar.
+    const failsafe = window.setTimeout(() => {
+      const { top, bottom } = el.getBoundingClientRect();
+      if (top < window.innerHeight && bottom > 0) setVisible(true);
+    }, 2500);
 
     return () => {
       observer.disconnect();
@@ -42,5 +50,6 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>() {
     };
   }, []);
 
-  return { ref, className: visible ? "reveal is-visible" : "reveal" };
+  const base = variant === "up" ? "reveal" : `reveal reveal--${variant}`;
+  return { ref, className: visible ? `${base} is-visible` : base };
 }

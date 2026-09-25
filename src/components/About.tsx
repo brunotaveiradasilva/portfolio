@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useReveal } from "../hooks/useReveal";
 
 export function About() {
-  const { ref, className } = useReveal<HTMLDivElement>();
+  const { ref, className } = useReveal<HTMLDivElement>("left");
   const [photoFailed, setPhotoFailed] = useState(false);
 
   return (

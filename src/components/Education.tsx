@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import { useReveal } from "../hooks/useReveal";
 
 const ACADEMIC = {
@@ -11,6 +11,8 @@ const ACADEMIC = {
 
 export function Education() {
   const head = useReveal<HTMLDivElement>();
+  const tabs = useReveal<HTMLDivElement>();
+  const card = useReveal<HTMLDivElement>("zoom");
   const [tab, setTab] = useState<"academica" | "cursos">("academica");
 
   return (
@@ -21,7 +23,9 @@ export function Education() {
           <h2 className="section-title">Formação e aprendizado contínuo.</h2>
         </div>
 
-        <div className="edu__tabs">
+        <div ref={tabs.ref} className={`edu__tabs ${tabs.className}`}
+          style={{ "--reveal-delay": "120ms" } as CSSProperties}
+        >
           <button
             type="button"
             className={`edu__tab ${tab === "academica" ? "is-active" : ""}`}
@@ -39,7 +43,9 @@ export function Education() {
         </div>
 
         {tab === "academica" ? (
-          <div className="edu-card">
+          <div ref={card.ref} className={`edu-card ${card.className}`}
+            style={{ "--reveal-delay": "240ms" } as CSSProperties}
+          >
             <h3 className="edu-card__school">{ACADEMIC.school}</h3>
             <p className="edu-card__course">{ACADEMIC.course}</p>
             <span className="edu-card__period">

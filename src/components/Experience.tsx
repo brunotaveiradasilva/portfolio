@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { useReveal } from "../hooks/useReveal";
 
 type Job = {
@@ -58,13 +59,13 @@ export function Experience() {
 }
 
 function JobItem({ job, delay }: { job: Job; delay: number }) {
-  const { ref, className } = useReveal<HTMLDivElement>();
+  const { ref, className } = useReveal<HTMLDivElement>("left");
 
   return (
     <div
       ref={ref}
       className={`timeline-item ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
+      style={{ "--reveal-delay": `${delay}ms` } as CSSProperties}
     >
       <span className="timeline-item__dot" />
       <p className="timeline-item__period">{job.period}</p>
