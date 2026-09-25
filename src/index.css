@@ -664,6 +664,17 @@ a {
   gap: 20px;
 }
 
+@media (min-width: 1000px) {
+  .skills__grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+  }
+
+  .skills__grid .skill-card {
+    padding: 32px 22px;
+  }
+}
+
 .skill-card {
   background: var(--bg-elev);
   border: 1px solid var(--hairline);

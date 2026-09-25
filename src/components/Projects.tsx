@@ -1,5 +1,6 @@
 import { useReveal } from "../hooks/useReveal";
-import reservaHubShot from "../assets/reserva-hub.png";
+import sulbiologicHubShot from "../assets/sulbiologic-hub.png";
+import prummoShot from "../assets/prummo-engenharia.jpg";
 import sauverIcon from "../assets/sauver-icon.png";
 import seafarerIcon from "../assets/seafarer-icon.png";
 
@@ -14,12 +15,20 @@ type Project = {
 
 const PROJECTS: Project[] = [
   {
-    name: "Reserva Hub",
+    name: "SulBiologic Hub",
     role: "Projeto pessoal",
-    thumb: reservaHubShot,
+    thumb: sulbiologicHubShot,
     desc: "Sistema de agendamento de materiais, com controle de estoque e atrasos por período.",
     linkLabel: "Ver demo",
-    linkUrl: "https://brunotaveiradasilva.github.io/reserva-hub/",
+    linkUrl: "https://brunotaveiradasilva.github.io/sulbiologic-hub/",
+  },
+  {
+    name: "Prummo Engenharia",
+    role: "Site institucional",
+    thumb: prummoShot,
+    desc: "Site de uma empresa de projetos hidrossanitários e elétricos, com portfólio de obras e serviços.",
+    linkLabel: "Ver site",
+    linkUrl: "https://brunotaveiradasilva.github.io/prummo-engenharia/",
   },
   {
     name: "Sauver",
