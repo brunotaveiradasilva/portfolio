@@ -186,10 +186,6 @@ html.is-splashing body {
   padding-bottom: 0.06em;
 }
 
-.splash__line + .splash__line .splash__char {
-  color: var(--accent);
-}
-
 .splash__char {
   display: inline-block;
   animation: splash-rise 0.8s var(--ease-out) backwards;
