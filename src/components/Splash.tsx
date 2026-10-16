@@ -1,11 +1,11 @@
-import { useEffect, useState, type CSSProperties } from "react";
+import { useEffect, useState } from "react";
+import { Logo, Wordmark } from "./Logo";
 
-const LINES = ["Bruno", "Taveira"];
 const STORAGE_KEY = "splash-seen";
 
 // Tempo até começar a saída e até desmontar (precisa bater com o CSS).
-const EXIT_AT = 2300;
-const DONE_AT = 3400;
+const EXIT_AT = 2000;
+const DONE_AT = 2800;
 
 function shouldShow() {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -18,7 +18,7 @@ function shouldShow() {
   }
 }
 
-/** Tela de abertura com o nome, exibida uma vez por sessão. */
+/** Abertura: o monograma se desenha e o nome aparece. Uma vez por sessão. */
 export function Splash() {
   const [phase, setPhase] = useState<"in" | "out" | "done">(() =>
     shouldShow() ? "in" : "done"
@@ -46,14 +46,13 @@ export function Splash() {
   }, []);
 
   useEffect(() => {
-    if (phase === "done") {
+    // Libera a página já na saída, pra animação do hero rodar por baixo.
+    if (phase !== "in") {
       document.documentElement.classList.remove("is-splashing");
     }
   }, [phase]);
 
   if (phase === "done") return null;
-
-  let letterIndex = 0;
 
   return (
     <div
@@ -61,30 +60,9 @@ export function Splash() {
       onClick={() => setPhase("done")}
       role="presentation"
     >
-      <div className="splash__curtain" />
-      <div className="splash__panel">
-        <div className="splash__content">
-          <h1 className="splash__name" aria-label="Bruno Taveira">
-            {LINES.map((line) => (
-              <span key={line} className="splash__line" aria-hidden="true">
-                {[...line].map((char) => {
-                  const i = letterIndex++;
-                  return (
-                    <span
-                      key={i}
-                      className="splash__char"
-                      style={{ "--i": i } as CSSProperties}
-                    >
-                      {char}
-                    </span>
-                  );
-                })}
-              </span>
-            ))}
-          </h1>
-          <span className="splash__bar" />
-          <p className="splash__role">Desenvolvedor de software</p>
-        </div>
+      <div className="splash__content">
+        <Logo className="splash__logo" />
+        <Wordmark className="splash__name" />
       </div>
     </div>
   );

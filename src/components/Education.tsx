@@ -1,4 +1,4 @@
-import { useState, type CSSProperties } from "react";
+import { useState } from "react";
 import { useReveal } from "../hooks/useReveal";
 
 const ACADEMIC = {
@@ -9,53 +9,63 @@ const ACADEMIC = {
   desc: "Graduação em Análise e Desenvolvimento de Sistemas, com foco em algoritmos, banco de dados, engenharia de software e desenvolvimento web e mobile.",
 };
 
+const TABS = [
+  { id: "academica", label: "Formação acadêmica" },
+  { id: "cursos", label: "Cursos e certificados" },
+] as const;
+
+type TabId = (typeof TABS)[number]["id"];
+
 export function Education() {
   const head = useReveal<HTMLDivElement>();
-  const tabs = useReveal<HTMLDivElement>();
-  const card = useReveal<HTMLDivElement>("zoom");
-  const [tab, setTab] = useState<"academica" | "cursos">("academica");
+  const body = useReveal<HTMLDivElement>("zoom");
+  const [tab, setTab] = useState<TabId>("academica");
+  const activeIndex = TABS.findIndex((t) => t.id === tab);
 
   return (
-    <section className="section section--alt" id="educacao">
+    <section className="section section--light" id="educacao">
       <div className="container">
-        <div ref={head.ref} className={`edu__head ${head.className}`}>
+        <div ref={head.ref} className={`section-head section-head--center ${head.className}`}>
           <p className="eyebrow">Educação</p>
-          <h2 className="section-title">Formação e aprendizado contínuo.</h2>
+          <h2 className="section-title">Aprendendo sempre.</h2>
         </div>
 
-        <div ref={tabs.ref} className={`edu__tabs ${tabs.className}`}
-          style={{ "--reveal-delay": "120ms" } as CSSProperties}
-        >
-          <button
-            type="button"
-            className={`edu__tab ${tab === "academica" ? "is-active" : ""}`}
-            onClick={() => setTab("academica")}
-          >
-            Formação acadêmica
-          </button>
-          <button
-            type="button"
-            className={`edu__tab ${tab === "cursos" ? "is-active" : ""}`}
-            onClick={() => setTab("cursos")}
-          >
-            Cursos e certificados
-          </button>
-        </div>
-
-        {tab === "academica" ? (
-          <div ref={card.ref} className={`edu-card ${card.className}`}
-            style={{ "--reveal-delay": "240ms" } as CSSProperties}
-          >
-            <h3 className="edu-card__school">{ACADEMIC.school}</h3>
-            <p className="edu-card__course">{ACADEMIC.course}</p>
-            <span className="edu-card__period">
-              {ACADEMIC.period} · {ACADEMIC.status}
-            </span>
-            <p className="edu-card__desc">{ACADEMIC.desc}</p>
+        <div ref={body.ref} className={`edu ${body.className}`}>
+          <div className="segmented" role="tablist">
+            <span
+              className="segmented__thumb"
+              style={{ transform: `translateX(${activeIndex * 100}%)` }}
+              aria-hidden="true"
+            />
+            {TABS.map((t) => (
+              <button
+                key={t.id}
+                type="button"
+                role="tab"
+                aria-selected={tab === t.id}
+                className={tab === t.id ? "is-active" : ""}
+                onClick={() => setTab(t.id)}
+              >
+                {t.label}
+              </button>
+            ))}
           </div>
-        ) : (
-          <p className="edu-empty">Em breve.</p>
-        )}
+
+          {tab === "academica" ? (
+            <div key="academica" className="edu-card">
+              <span className="edu-card__period">
+                {ACADEMIC.period} · {ACADEMIC.status}
+              </span>
+              <h3 className="edu-card__school">{ACADEMIC.school}</h3>
+              <p className="edu-card__course">{ACADEMIC.course}</p>
+              <p className="edu-card__desc">{ACADEMIC.desc}</p>
+            </div>
+          ) : (
+            <div key="cursos" className="edu-card edu-card--empty">
+              <p>Em breve.</p>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

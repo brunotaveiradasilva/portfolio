@@ -1,6 +1,7 @@
 import { Splash } from "./components/Splash";
 import { Nav } from "./components/Nav";
 import { Hero } from "./components/Hero";
+import { Statement } from "./components/Statement";
 import { About } from "./components/About";
 import { Skills } from "./components/Skills";
 import { Projects } from "./components/Projects";
@@ -17,6 +18,7 @@ export default function App() {
       <Nav />
       <main>
         <Hero />
+        <Statement />
         <About />
         <Skills />
         <Projects />
