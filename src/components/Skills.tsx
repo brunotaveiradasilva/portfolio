@@ -17,71 +17,55 @@ import {
 import type { CSSProperties } from "react";
 import { useReveal } from "../hooks/useReveal";
 
-type Tag = {
-  label: string;
-  icon?: IconType;
-};
-
 type Skill = {
   icon: IconType;
   name: string;
   desc: string;
-  tags: Tag[];
+  stack: IconType[];
+  tags: string[];
+  /** Tile escuro no bento, pra dar ritmo ao grid. */
+  dark?: boolean;
+  wide?: boolean;
 };
 
 const SKILLS: Skill[] = [
   {
     icon: SiFlutter,
     name: "Mobile",
-    desc: "Apps multiplataforma (Android e iOS) a partir de uma única base de código.",
-    tags: [
-      { label: "Dart", icon: SiDart },
-      { label: "Flutter", icon: SiFlutter },
-    ],
+    desc: "Apps multiplataforma, Android e iOS, a partir de uma única base de código.",
+    stack: [SiFlutter, SiDart],
+    tags: ["Flutter", "Dart"],
+    dark: true,
+    wide: true,
   },
   {
     icon: SiReact,
     name: "Front-end",
     desc: "Interfaces web modernas, consumindo APIs RESTful.",
-    tags: [
-      { label: "React", icon: SiReact },
-      { label: "Vue.js", icon: SiVuedotjs },
-      { label: "JavaScript", icon: SiJavascript },
-      { label: "HTML", icon: SiHtml5 },
-      { label: "CSS", icon: SiCss },
-    ],
+    stack: [SiReact, SiVuedotjs, SiJavascript, SiHtml5, SiCss],
+    tags: ["React", "Vue.js", "JavaScript", "HTML", "CSS"],
   },
   {
     icon: SiSpringboot,
     name: "Back-end",
     desc: "APIs e regras de negócio, com foco em código limpo e testado.",
-    tags: [
-      { label: "Java", icon: SiOpenjdk },
-      { label: "Spring Boot", icon: SiSpringboot },
-      { label: "Ruby on Rails", icon: SiRubyonrails },
-      { label: "REST" },
-    ],
+    stack: [SiOpenjdk, SiSpringboot, SiRubyonrails],
+    tags: ["Java", "Spring Boot", "Ruby on Rails", "REST"],
   },
   {
     icon: SiMysql,
     name: "Dados",
     desc: "Modelagem, consultas e dashboards para indicadores de negócio.",
-    tags: [
-      { label: "MySQL", icon: SiMysql },
-      { label: "Power BI" },
-      { label: "Excel avançado" },
-    ],
+    stack: [SiMysql],
+    tags: ["MySQL", "Power BI", "Excel avançado"],
+    dark: true,
   },
   {
     icon: SiGit,
     name: "Ferramentas",
     desc: "Versionamento e organização de trabalho em times ágeis.",
-    tags: [
-      { label: "Git", icon: SiGit },
-      { label: "GitHub", icon: SiGithub },
-      { label: "Scrum" },
-      { label: "Kanban" },
-    ],
+    stack: [SiGit, SiGithub],
+    tags: ["Git", "GitHub", "Scrum", "Kanban"],
   },
 ];
 
@@ -89,16 +73,20 @@ export function Skills() {
   const head = useReveal<HTMLDivElement>();
 
   return (
-    <section className="section section--alt" id="skills">
+    <section className="section" id="skills">
       <div className="container">
-        <div ref={head.ref} className={`skills__head ${head.className}`}>
+        <div ref={head.ref} className={`section-head ${head.className}`}>
           <p className="eyebrow">Skills</p>
-          <h2 className="section-title">As ferramentas que uso todo dia.</h2>
+          <h2 className="section-title">
+            As ferramentas
+            <br />
+            que uso todo dia.
+          </h2>
         </div>
 
-        <div className="skills__grid">
+        <div className="bento">
           {SKILLS.map((skill, i) => (
-            <SkillCard key={skill.name} skill={skill} delay={i * 90} />
+            <SkillTile key={skill.name} skill={skill} delay={(i % 3) * 100} />
           ))}
         </div>
       </div>
@@ -106,32 +94,32 @@ export function Skills() {
   );
 }
 
-function SkillCard({ skill, delay }: { skill: Skill; delay: number }) {
+function SkillTile({ skill, delay }: { skill: Skill; delay: number }) {
   const { ref, className } = useReveal<HTMLDivElement>("zoom");
   const Icon = skill.icon;
 
   return (
     <article
       ref={ref}
-      className={`skill-card ${className}`}
+      className={[
+        "tile",
+        skill.dark ? "tile--dark" : "",
+        skill.wide ? "tile--wide" : "",
+        className,
+      ].join(" ")}
       style={{ "--reveal-delay": `${delay}ms` } as CSSProperties}
     >
-      <span className="skill-card__mark">
-        <Icon aria-hidden="true" />
-      </span>
-      <h3 className="skill-card__name">{skill.name}</h3>
-      <p className="skill-card__desc">{skill.desc}</p>
-      <div className="skill-card__tags">
-        {skill.tags.map((tag) => {
-          const TagIcon = tag.icon;
-          return (
-            <span key={tag.label} className="tag">
-              {TagIcon ? <TagIcon aria-hidden="true" /> : null}
-              {tag.label}
-            </span>
-          );
-        })}
-      </div>
+      <Icon className="tile__icon" aria-hidden="true" />
+      <h3 className="tile__name">{skill.name}</h3>
+      <p className="tile__desc">{skill.desc}</p>
+      <p className="tile__tags">{skill.tags.join(" · ")}</p>
+      {skill.wide ? (
+        <div className="tile__stack" aria-hidden="true">
+          {skill.stack.map((StackIcon, j) => (
+            <StackIcon key={j} />
+          ))}
+        </div>
+      ) : null}
     </article>
   );
 }

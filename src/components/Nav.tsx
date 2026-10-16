@@ -1,5 +1,5 @@
-import { useState } from "react";
-import logoMark from "../assets/logo-mark.png";
+import { useEffect, useState, type CSSProperties } from "react";
+import { Wordmark } from "./Logo";
 
 const LINKS = [
   { href: "#sobre", label: "Sobre" },
@@ -14,16 +14,54 @@ const LINKS = [
 export function Nav() {
   const [open, setOpen] = useState(false);
 
+  const [dark, setDark] = useState(true);
+
+  // Menu mobile aberto: trava a rolagem da página por trás.
+  useEffect(() => {
+    document.documentElement.classList.toggle("is-menu-open", open);
+  }, [open]);
+
+  // Fica escura enquanto estiver por cima de uma seção preta, como na Apple.
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const y = 48;
+      const sections = document.querySelectorAll<HTMLElement>(".hero, .section--dark");
+      setDark(
+        [...sections].some((s) => {
+          const { top, bottom } = s.getBoundingClientRect();
+          return top <= y && bottom > y;
+        })
+      );
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+    };
+  }, []);
+
   return (
-    <nav className="nav">
+    <nav className={`nav ${dark ? "nav--dark" : ""} ${open ? "is-open" : ""}`}>
       <div className="nav__inner">
-        <a href="#top" className="nav__brand">
-          <img src={logoMark} alt="" className="nav__logo" />
-          Bruno Taveira
+        <a
+          href="#top"
+          className="nav__brand"
+          aria-label="Bruno Taveira — início"
+          onClick={() => setOpen(false)}
+        >
+          <Wordmark />
         </a>
-        <ul className={`nav__links ${open ? "is-open" : ""}`}>
-          {LINKS.map((link) => (
-            <li key={link.href}>
+        <ul className="nav__links">
+          {LINKS.map((link, i) => (
+            <li key={link.href} style={{ "--i": i } as CSSProperties}>
               <a href={link.href} onClick={() => setOpen(false)}>
                 {link.label}
               </a>
@@ -37,13 +75,8 @@ export function Nav() {
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
         >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-            {open ? (
-              <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
-            ) : (
-              <path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round" />
-            )}
-          </svg>
+          <span />
+          <span />
         </button>
       </div>
     </nav>

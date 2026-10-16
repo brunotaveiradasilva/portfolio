@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { useReveal } from "../hooks/useReveal";
 
 type Job = {
@@ -37,52 +37,85 @@ const JOBS: Job[] = [
   },
 ];
 
+const STATS = [
+  { value: 2, suffix: " anos", label: "desenvolvendo apps web e mobile" },
+  { value: 4, suffix: "", label: "projetos publicados" },
+  { value: 2, suffix: "", label: "apps na Play Store" },
+];
+
 export function Experience() {
   const head = useReveal<HTMLDivElement>();
+  const stats = useReveal<HTMLDivElement>();
+  const counting = stats.className.includes("is-visible");
 
   return (
     <section className="section" id="experiencia">
       <div className="container">
-        <div ref={head.ref} className={`timeline__head ${head.className}`}>
+        <div ref={head.ref} className={`section-head ${head.className}`}>
           <p className="eyebrow">Experiência</p>
           <h2 className="section-title">Trajetória profissional.</h2>
         </div>
 
-        <div className="timeline">
-          {JOBS.map((job, i) => (
-            <JobItem key={job.role + job.company} job={job} delay={i * 90} />
+        <div ref={stats.ref} className={`stats ${stats.className}`}>
+          {STATS.map((stat, i) => (
+            <div
+              key={stat.label}
+              className="stat"
+              style={{ "--reveal-delay": `${i * 120}ms` } as CSSProperties}
+            >
+              <p className="stat__value">
+                <CountUp to={stat.value} run={counting} />
+                {stat.suffix}
+              </p>
+              <p className="stat__label">{stat.label}</p>
+            </div>
           ))}
         </div>
+
+        <ol className="jobs">
+          {JOBS.map((job) => (
+            <JobRow key={job.role + job.company} job={job} />
+          ))}
+        </ol>
       </div>
     </section>
   );
 }
 
-function JobItem({ job, delay }: { job: Job; delay: number }) {
-  const { ref, className } = useReveal<HTMLDivElement>("left");
+function CountUp({ to, run }: { to: number; run: boolean }) {
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    if (!run) return;
+    const start = performance.now();
+    const duration = 1200;
+    let frame = requestAnimationFrame(function tick(now) {
+      const t = Math.min(1, (now - start) / duration);
+      setValue(Math.round(to * (1 - Math.pow(1 - t, 3))));
+      if (t < 1) frame = requestAnimationFrame(tick);
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [run, to]);
+
+  return <>{value}</>;
+}
+
+function JobRow({ job }: { job: Job }) {
+  const { ref, className } = useReveal<HTMLLIElement>();
 
   return (
-    <div
-      ref={ref}
-      className={`timeline-item ${className}`}
-      style={{ "--reveal-delay": `${delay}ms` } as CSSProperties}
-    >
-      <span className="timeline-item__dot" />
-      <p className="timeline-item__period">{job.period}</p>
-      <div className="timeline-item__card">
-        <h3 className="timeline-item__role">{job.role}</h3>
-        <p className="timeline-item__company">
+    <li ref={ref} className={`job ${className}`}>
+      <p className="job__period">{job.period}</p>
+      <div className="job__main">
+        <h3 className="job__role">{job.role}</h3>
+        <p className="job__company">
           {job.company} · {job.duration}
         </p>
-        <p className="timeline-item__desc">{job.desc}</p>
-        <div className="timeline-item__tags">
-          {job.tags.map((t) => (
-            <span key={t} className="tag">
-              {t}
-            </span>
-          ))}
-        </div>
       </div>
-    </div>
+      <div className="job__detail">
+        <p className="job__desc">{job.desc}</p>
+        <p className="job__tags">{job.tags.join(" · ")}</p>
+      </div>
+    </li>
   );
 }
