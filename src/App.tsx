@@ -1,4 +1,3 @@
-import { Splash } from "./components/Splash";
 import { Nav } from "./components/Nav";
 import { Hero } from "./components/Hero";
 import { Statement } from "./components/Statement";
@@ -14,7 +13,6 @@ import { Footer } from "./components/Footer";
 export default function App() {
   return (
     <>
-      <Splash />
       <Nav />
       <main>
         <Hero />
