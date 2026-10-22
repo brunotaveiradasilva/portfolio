@@ -1,6 +1,3 @@
-import { useEffect, useState, type CSSProperties } from "react";
-import { useReveal } from "../hooks/useReveal";
-
 type Job = {
   role: string;
   company: string;
@@ -24,8 +21,8 @@ const JOBS: Job[] = [
     company: "Jera",
     period: "Mar 2023 — Fev 2025",
     duration: "2 anos · Campo Grande, MS · Híbrido",
-    desc: "Desenvolvimento mobile com Flutter e back-end com Ruby on Rails, atuando em squads do time de produto de ponta a ponta.",
-    tags: ["Flutter", "Ruby on Rails"],
+    desc: "Back-end com Ruby on Rails e desenvolvimento mobile com Flutter, atuando em squads do time de produto de ponta a ponta.",
+    tags: ["Ruby on Rails", "APIs REST", "Flutter"],
   },
   {
     role: "Seller",
@@ -44,27 +41,19 @@ const STATS = [
 ];
 
 export function Experience() {
-  const head = useReveal<HTMLDivElement>();
-  const stats = useReveal<HTMLDivElement>();
-  const counting = stats.className.includes("is-visible");
-
   return (
     <section className="section" id="experiencia">
       <div className="container">
-        <div ref={head.ref} className={`section-head ${head.className}`}>
+        <div className="section-head">
           <p className="eyebrow">Experiência</p>
           <h2 className="section-title">Trajetória profissional.</h2>
         </div>
 
-        <div ref={stats.ref} className={`stats ${stats.className}`}>
-          {STATS.map((stat, i) => (
-            <div
-              key={stat.label}
-              className="stat"
-              style={{ "--reveal-delay": `${i * 120}ms` } as CSSProperties}
-            >
+        <div className="stats">
+          {STATS.map((stat) => (
+            <div key={stat.label} className="stat">
               <p className="stat__value">
-                <CountUp to={stat.value} run={counting} />
+                {stat.value}
                 {stat.suffix}
               </p>
               <p className="stat__label">{stat.label}</p>
@@ -82,29 +71,9 @@ export function Experience() {
   );
 }
 
-function CountUp({ to, run }: { to: number; run: boolean }) {
-  const [value, setValue] = useState(0);
-
-  useEffect(() => {
-    if (!run) return;
-    const start = performance.now();
-    const duration = 1200;
-    let frame = requestAnimationFrame(function tick(now) {
-      const t = Math.min(1, (now - start) / duration);
-      setValue(Math.round(to * (1 - Math.pow(1 - t, 3))));
-      if (t < 1) frame = requestAnimationFrame(tick);
-    });
-    return () => cancelAnimationFrame(frame);
-  }, [run, to]);
-
-  return <>{value}</>;
-}
-
 function JobRow({ job }: { job: Job }) {
-  const { ref, className } = useReveal<HTMLLIElement>();
-
   return (
-    <li ref={ref} className={`job ${className}`}>
+    <li className="job">
       <p className="job__period">{job.period}</p>
       <div className="job__main">
         <h3 className="job__role">{job.role}</h3>

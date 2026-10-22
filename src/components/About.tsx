@@ -1,36 +1,28 @@
-import type { CSSProperties } from "react";
-import { useReveal } from "../hooks/useReveal";
-
 export function About() {
-  const head = useReveal<HTMLDivElement>();
-  const body = useReveal<HTMLDivElement>();
-
   return (
     <section className="section section--light" id="sobre">
       <div className="container">
-        <div ref={head.ref} className={`section-head ${head.className}`}>
+        <div className="section-head">
           <p className="eyebrow">Sobre</p>
           <h2 className="section-title">
-            Do Flutter ao front-end.
+            Full stack,
             <br />
-            <span className="muted">E de volta ao código.</span>
+            <span className="muted">com o pé no back-end.</span>
           </h2>
         </div>
 
-        <div
-          ref={body.ref}
-          className={`about__body ${body.className}`}
-          style={{ "--reveal-delay": "120ms" } as CSSProperties}
-        >
+        <div className="about__body">
           <p>
-            Cerca de 2 anos construindo aplicações mobile e web. Atuei com
-            Flutter, integração de APIs RESTful e banco de dados MySQL.
+            Cerca de 2 anos construindo aplicações web e mobile, com integração
+            de APIs RESTful, back-end em Ruby on Rails e banco de dados MySQL.
+            Também tenho experiência com Flutter.
           </p>
           <p>
-            Hoje trabalho com análise de dados, o que reforçou minha visão de
-            negócio e de indicadores — e estou voltando a focar em
-            desenvolvimento, aprofundando React, Java e Spring. Sou graduando em
-            Análise e Desenvolvimento de Sistemas na UCDB.
+            Meu objetivo é atuar como desenvolvedor full stack com foco em
+            back-end Java: APIs com Spring Boot, regras de negócio bem modeladas
+            e código testado. Hoje trabalho com análise de dados, o que reforçou
+            minha visão de negócio, e sou graduando em Análise e Desenvolvimento
+            de Sistemas na UCDB.
           </p>
         </div>
       </div>

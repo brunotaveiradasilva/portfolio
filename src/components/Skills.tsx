@@ -14,8 +14,6 @@ import {
   SiSpringboot,
   SiVuedotjs,
 } from "react-icons/si";
-import type { CSSProperties } from "react";
-import { useReveal } from "../hooks/useReveal";
 
 type Skill = {
   icon: IconType;
@@ -30,11 +28,11 @@ type Skill = {
 
 const SKILLS: Skill[] = [
   {
-    icon: SiFlutter,
-    name: "Mobile",
-    desc: "Apps multiplataforma, Android e iOS, a partir de uma única base de código.",
-    stack: [SiFlutter, SiDart],
-    tags: ["Flutter", "Dart"],
+    icon: SiOpenjdk,
+    name: "Back-end",
+    desc: "APIs RESTful e regras de negócio com Java e Spring Boot, com foco em código limpo, testado e bem estruturado.",
+    stack: [SiOpenjdk, SiSpringboot, SiRubyonrails],
+    tags: ["Java", "Spring Boot", "APIs REST", "Ruby on Rails"],
     dark: true,
     wide: true,
   },
@@ -46,19 +44,19 @@ const SKILLS: Skill[] = [
     tags: ["React", "Vue.js", "JavaScript", "HTML", "CSS"],
   },
   {
-    icon: SiSpringboot,
-    name: "Back-end",
-    desc: "APIs e regras de negócio, com foco em código limpo e testado.",
-    stack: [SiOpenjdk, SiSpringboot, SiRubyonrails],
-    tags: ["Java", "Spring Boot", "Ruby on Rails", "REST"],
-  },
-  {
     icon: SiMysql,
     name: "Dados",
     desc: "Modelagem, consultas e dashboards para indicadores de negócio.",
     stack: [SiMysql],
     tags: ["MySQL", "Power BI", "Excel avançado"],
     dark: true,
+  },
+  {
+    icon: SiFlutter,
+    name: "Mobile",
+    desc: "Apps multiplataforma para Android e iOS.",
+    stack: [SiFlutter, SiDart],
+    tags: ["Flutter", "Dart"],
   },
   {
     icon: SiGit,
@@ -70,12 +68,10 @@ const SKILLS: Skill[] = [
 ];
 
 export function Skills() {
-  const head = useReveal<HTMLDivElement>();
-
   return (
     <section className="section" id="skills">
       <div className="container">
-        <div ref={head.ref} className={`section-head ${head.className}`}>
+        <div className="section-head">
           <p className="eyebrow">Skills</p>
           <h2 className="section-title">
             As ferramentas
@@ -85,8 +81,8 @@ export function Skills() {
         </div>
 
         <div className="bento">
-          {SKILLS.map((skill, i) => (
-            <SkillTile key={skill.name} skill={skill} delay={(i % 3) * 100} />
+          {SKILLS.map((skill) => (
+            <SkillTile key={skill.name} skill={skill} />
           ))}
         </div>
       </div>
@@ -94,20 +90,16 @@ export function Skills() {
   );
 }
 
-function SkillTile({ skill, delay }: { skill: Skill; delay: number }) {
-  const { ref, className } = useReveal<HTMLDivElement>("zoom");
+function SkillTile({ skill }: { skill: Skill }) {
   const Icon = skill.icon;
 
   return (
     <article
-      ref={ref}
       className={[
         "tile",
         skill.dark ? "tile--dark" : "",
         skill.wide ? "tile--wide" : "",
-        className,
       ].join(" ")}
-      style={{ "--reveal-delay": `${delay}ms` } as CSSProperties}
     >
       <Icon className="tile__icon" aria-hidden="true" />
       <h3 className="tile__name">{skill.name}</h3>
