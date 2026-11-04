@@ -188,10 +188,6 @@ a:hover .wordmark__tag:last-child {
   color: var(--gray-2);
 }
 
-.muted {
-  color: var(--gray-2);
-}
-
 .hide-sm {
   display: none;
 }
@@ -487,28 +483,24 @@ a:hover .link-arrow::after,
   color: var(--white);
 }
 
-/* ---------- Statement ----------------------------------------------------- */
-
-.statement {
-  padding: clamp(96px, 14vw, 160px) 0;
-  background: var(--white);
-}
-
-.statement__text {
-  max-width: calc(var(--maxw) + var(--gutter) * 2);
-  margin: 0 auto;
-  padding: 0 var(--gutter);
-  font-size: clamp(32px, 5.4vw, 64px);
-  line-height: 1.12;
-  font-weight: 700;
-  letter-spacing: -0.03em;
-}
-
 /* ---------- Sobre --------------------------------------------------------- */
+
+.about {
+  display: grid;
+  gap: 48px;
+  align-items: center;
+}
 
 .about__body {
   display: grid;
-  gap: 20px 56px;
+  gap: 24px;
+}
+
+.about__portrait {
+  display: block;
+  width: min(100%, 360px);
+  height: auto;
+  margin: 0 auto;
 }
 
 .about__body p {
@@ -519,8 +511,14 @@ a:hover .link-arrow::after,
 }
 
 @media (min-width: 860px) {
-  .about__body {
-    grid-template-columns: 1fr 1fr;
+  .about {
+    grid-template-columns: 3fr 2fr;
+    gap: 72px;
+  }
+
+  .about__portrait {
+    width: 100%;
+    max-width: 420px;
   }
 }
 
