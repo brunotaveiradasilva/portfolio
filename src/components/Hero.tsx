@@ -43,9 +43,6 @@ export function Hero() {
             </h1>
 
             <div className="hero__body">
-              <p className="hero__subtitle">
-                APIs com Java e Spring Boot, do banco de dados à interface.
-              </p>
               <a className="btn" href="#projetos">
                 Ver projetos
               </a>
@@ -75,8 +72,8 @@ export function Hero() {
           <img
             src={portrait}
             alt="Bruno Taveira sorrindo, de camisa preta"
-            width={920}
-            height={1150}
+            width={1360}
+            height={1700}
             fetchPriority="high"
           />
         </div>
