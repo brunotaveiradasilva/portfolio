@@ -483,45 +483,6 @@ a:hover .link-arrow::after,
   color: var(--white);
 }
 
-/* ---------- Sobre --------------------------------------------------------- */
-
-.about {
-  display: grid;
-  gap: 48px;
-  align-items: center;
-}
-
-.about__body {
-  display: grid;
-  gap: 24px;
-}
-
-.about__portrait {
-  display: block;
-  width: min(100%, 360px);
-  height: auto;
-  margin: 0 auto;
-}
-
-.about__body p {
-  font-size: clamp(19px, 1.8vw, 24px);
-  line-height: 1.45;
-  color: var(--gray);
-  font-weight: 500;
-}
-
-@media (min-width: 860px) {
-  .about {
-    grid-template-columns: 3fr 2fr;
-    gap: 72px;
-  }
-
-  .about__portrait {
-    width: 100%;
-    max-width: 420px;
-  }
-}
-
 /* ---------- Skills (bento) ------------------------------------------------ */
 
 .bento {

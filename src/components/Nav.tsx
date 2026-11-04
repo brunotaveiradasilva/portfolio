@@ -2,7 +2,6 @@ import { useEffect, useState, type CSSProperties } from "react";
 import { Wordmark } from "./Logo";
 
 const LINKS = [
-  { href: "#sobre", label: "Sobre" },
   { href: "#skills", label: "Skills" },
   { href: "#projetos", label: "Projetos" },
   { href: "#experiencia", label: "Experiência" },
