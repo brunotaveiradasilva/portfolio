@@ -27,8 +27,8 @@
   --maxw: 1024px;
   --gutter: 22px;
 
-  --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
-    "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
 }
 
 * {
@@ -55,6 +55,7 @@ body {
   line-height: 1.47;
   letter-spacing: -0.016em;
   font-size: 17px;
+  font-weight: 300;
   overflow-x: hidden;
 }
 
@@ -107,7 +108,7 @@ button {
 
 .wordmark__tag {
   white-space: pre;
-  font-weight: 500;
+  font-weight: 300;
   opacity: 0.45;
   transition: opacity 0.4s, transform 0.4s var(--ease-out);
 }
@@ -118,7 +119,7 @@ button {
 
 .wordmark__last {
   margin-left: 0.22em;
-  font-weight: 400;
+  font-weight: 300;
 }
 
 a:hover .wordmark__tag:first-child {
@@ -163,7 +164,6 @@ a:hover .wordmark__tag:last-child {
 
 .splash__name {
   font-size: 24px;
-  font-weight: 600;
   animation: fade-up 0.9s var(--ease-out) 1s backwards;
 }
 
@@ -293,7 +293,7 @@ a:hover .wordmark__tag:last-child {
 
 .eyebrow {
   font-size: clamp(17px, 1.6vw, 21px);
-  font-weight: 600;
+  font-weight: 300;
   color: var(--gray);
   margin-bottom: 10px;
 }
@@ -305,7 +305,7 @@ a:hover .wordmark__tag:last-child {
 .section-title {
   font-size: clamp(40px, 6.4vw, 80px);
   line-height: 1.05;
-  font-weight: 700;
+  font-weight: 300;
   letter-spacing: -0.03em;
 }
 
@@ -313,7 +313,7 @@ a:hover .wordmark__tag:last-child {
   font-size: clamp(19px, 2vw, 24px);
   line-height: 1.4;
   color: var(--gray);
-  font-weight: 500;
+  font-weight: 300;
 }
 
 .section--dark .section-lead {
@@ -342,7 +342,7 @@ a:hover .wordmark__tag:last-child {
   background: var(--black);
   color: var(--white);
   font-size: 17px;
-  font-weight: 500;
+  font-weight: 300;
   letter-spacing: -0.01em;
   transition: transform 0.3s var(--ease-out), background 0.3s, opacity 0.3s;
 }
@@ -371,7 +371,7 @@ a:hover .wordmark__tag:last-child {
   align-items: center;
   gap: 4px;
   font-size: 17px;
-  font-weight: 500;
+  font-weight: 300;
 }
 
 .link-arrow::after {
@@ -513,7 +513,7 @@ a:hover .link-arrow::after,
     gap: 0;
     padding: 16px 44px;
     font-size: 28px;
-    font-weight: 600;
+    font-weight: 300;
     visibility: hidden;
   }
 
@@ -575,7 +575,7 @@ a:hover .link-arrow::after,
   background: rgba(255, 255, 255, 0.07);
   color: #d2d2d7;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 300;
   animation: fade-up 1s var(--ease-out) 0.2s backwards;
 }
 
@@ -774,7 +774,7 @@ html.is-splashing .hero * {
 .tile__name {
   margin-top: 48px;
   font-size: clamp(28px, 3vw, 40px);
-  font-weight: 700;
+  font-weight: 300;
   letter-spacing: -0.03em;
   line-height: 1.1;
 }
@@ -783,7 +783,7 @@ html.is-splashing .hero * {
   margin-top: 8px;
   font-size: 17px;
   color: var(--gray);
-  font-weight: 500;
+  font-weight: 300;
   max-width: 420px;
 }
 
@@ -794,7 +794,7 @@ html.is-splashing .hero * {
 .tile__tags {
   margin-top: 20px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 300;
   color: var(--ink);
 }
 
@@ -976,14 +976,14 @@ html.is-splashing .hero * {
 
 .project__role {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 300;
   color: var(--gray-2);
 }
 
 .project__name {
   margin-top: 4px;
   font-size: clamp(28px, 3vw, 36px);
-  font-weight: 700;
+  font-weight: 300;
   letter-spacing: -0.03em;
   line-height: 1.1;
 }
@@ -991,7 +991,7 @@ html.is-splashing .hero * {
 .project__desc {
   margin: 10px 0 18px;
   color: #a1a1a6;
-  font-weight: 500;
+  font-weight: 300;
   max-width: 520px;
 }
 
@@ -1073,14 +1073,14 @@ html.is-splashing .hero * {
 
 .job__period {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 300;
   color: var(--gray);
   padding-top: 6px;
 }
 
 .job__role {
   font-size: clamp(24px, 2.6vw, 32px);
-  font-weight: 700;
+  font-weight: 300;
   letter-spacing: -0.025em;
   line-height: 1.15;
 }
@@ -1089,18 +1089,18 @@ html.is-splashing .hero * {
   margin-top: 4px;
   font-size: 15px;
   color: var(--gray);
-  font-weight: 500;
+  font-weight: 300;
 }
 
 .job__desc {
   color: var(--gray);
-  font-weight: 500;
+  font-weight: 300;
 }
 
 .job__tags {
   margin-top: 12px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 300;
 }
 
 @media (min-width: 860px) {
@@ -1125,14 +1125,14 @@ html.is-splashing .hero * {
 
 .edu-card__period {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 300;
   color: var(--gray);
 }
 
 .edu-card__school {
   margin-top: 12px;
   font-size: clamp(48px, 7vw, 72px);
-  font-weight: 700;
+  font-weight: 300;
   letter-spacing: -0.04em;
   line-height: 1;
 }
@@ -1140,14 +1140,14 @@ html.is-splashing .hero * {
 .edu-card__course {
   margin-top: 10px;
   font-size: 21px;
-  font-weight: 600;
+  font-weight: 300;
 }
 
 .edu-card__desc {
   margin: 20px auto 0;
   max-width: 520px;
   color: var(--gray);
-  font-weight: 500;
+  font-weight: 300;
 }
 
 /* ---------- Contato ------------------------------------------------------- */
@@ -1163,7 +1163,7 @@ html.is-splashing .hero * {
   flex-direction: column;
   font-size: clamp(64px, 14vw, 184px);
   line-height: 0.95;
-  font-weight: 700;
+  font-weight: 300;
   letter-spacing: -0.05em;
   margin-bottom: 48px;
 }
@@ -1207,7 +1207,7 @@ html.is-splashing .hero * {
   border: 1px solid var(--hairline-dark);
   color: #e8e8ed;
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 300;
   transition: background 0.3s, border-color 0.3s, transform 0.3s var(--ease-out);
 }
 
@@ -1241,7 +1241,7 @@ html.is-splashing .hero * {
 
 .resume__title {
   font-size: clamp(32px, 4vw, 48px);
-  font-weight: 700;
+  font-weight: 300;
   letter-spacing: -0.03em;
   line-height: 1.1;
 }
@@ -1249,7 +1249,7 @@ html.is-splashing .hero * {
 .resume__lead {
   margin-top: 8px;
   color: var(--gray);
-  font-weight: 500;
+  font-weight: 300;
   max-width: 440px;
 }
 
