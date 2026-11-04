@@ -1,30 +1,30 @@
+import desenho from "../assets/bruno-desenho.png";
+
 export function About() {
   return (
     <section className="section section--light" id="sobre">
-      <div className="container">
-        <div className="section-head">
-          <p className="eyebrow">Sobre</p>
-          <h2 className="section-title">
-            Full stack,
-            <br />
-            <span className="muted">com o pé no back-end.</span>
-          </h2>
-        </div>
-
+      <div className="container about">
         <div className="about__body">
           <p>
-            Cerca de 2 anos construindo aplicações web e mobile, com integração
-            de APIs RESTful, back-end em Ruby on Rails e banco de dados MySQL.
-            Também tenho experiência com Flutter.
+            Sou desenvolvedor full stack, com cerca de 2 anos de experiência em
+            aplicações web e mobile. Trabalhei com back-end em Ruby on Rails,
+            integração de APIs RESTful, banco de dados MySQL e apps em Flutter.
           </p>
           <p>
-            Meu objetivo é atuar como desenvolvedor full stack com foco em
-            back-end Java: APIs com Spring Boot, regras de negócio bem modeladas
-            e código testado. Hoje trabalho com análise de dados, o que reforçou
-            minha visão de negócio, e sou graduando em Análise e Desenvolvimento
-            de Sistemas na UCDB.
+            Hoje atuo com análise de dados, o que fortaleceu minha visão de
+            negócio, e curso Análise e Desenvolvimento de Sistemas na UCDB. Meu
+            objetivo é atuar com foco em back-end Java, criando APIs com Spring
+            Boot, com regras de negócio bem modeladas e código testado.
           </p>
         </div>
+        <img
+          className="about__portrait"
+          src={desenho}
+          alt="Desenho do rosto de Bruno Taveira, sorrindo"
+          width={800}
+          height={776}
+          loading="lazy"
+        />
       </div>
     </section>
   );
