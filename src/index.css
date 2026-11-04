@@ -1,7 +1,7 @@
 /* ==========================================================================
    Bruno Taveira — Portfólio
    Linguagem visual das páginas da Apple: preto e branco, tipografia grande,
-   seções alternando claro/escuro e pouco movimento (só transições de hover).
+   seções alternando claro/escuro e animações guiadas pela rolagem.
    ========================================================================== */
 
 :root {
@@ -27,8 +27,8 @@
   --maxw: 1024px;
   --gutter: 22px;
 
-  --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
-    "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
 }
 
 * {
@@ -43,6 +43,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+html.is-splashing,
 html.is-menu-open {
   overflow: hidden;
 }
@@ -54,6 +55,7 @@ body {
   line-height: 1.47;
   letter-spacing: -0.016em;
   font-size: 17px;
+  font-weight: 300;
   overflow-x: hidden;
 }
 
@@ -106,7 +108,7 @@ button {
 
 .wordmark__tag {
   white-space: pre;
-  font-weight: 500;
+  font-weight: 300;
   opacity: 0.45;
   transition: opacity 0.4s, transform 0.4s var(--ease-out);
 }
@@ -117,7 +119,7 @@ button {
 
 .wordmark__last {
   margin-left: 0.22em;
-  font-weight: 400;
+  font-weight: 300;
 }
 
 a:hover .wordmark__tag:first-child {
@@ -126,6 +128,136 @@ a:hover .wordmark__tag:first-child {
 
 a:hover .wordmark__tag:last-child {
   transform: translateX(3px);
+}
+
+/* ---------- Splash -------------------------------------------------------- */
+
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: var(--black);
+  color: var(--white);
+  cursor: pointer;
+}
+
+.splash__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+
+.splash__logo {
+  font-size: 88px;
+}
+
+.splash__logo .logo__stroke {
+  stroke-dasharray: 1.02 1;
+  animation: draw 0.9s var(--ease-apple) both;
+}
+
+.splash__logo .logo__stroke:nth-child(2) { animation-delay: 0.3s; }
+.splash__logo .logo__stroke:nth-child(3) { animation-delay: 0.55s; }
+
+.splash__name {
+  font-size: 24px;
+  animation: fade-up 0.9s var(--ease-out) 1s backwards;
+}
+
+.splash.is-leaving {
+  animation: splash-out 0.8s var(--ease-apple) forwards;
+}
+
+.splash.is-leaving .splash__content {
+  animation: splash-content-out 0.8s var(--ease-apple) forwards;
+}
+
+/* Some com a ponta arredondada antes do traço começar a desenhar */
+@keyframes draw {
+  0% {
+    stroke-dashoffset: 1.02;
+    stroke-opacity: 0;
+  }
+  2% {
+    stroke-opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    stroke-opacity: 1;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(8px);
+  }
+}
+
+@keyframes splash-out {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes splash-content-out {
+  to {
+    transform: scale(1.6);
+    filter: blur(10px);
+  }
+}
+
+/* ---------- Reveal ao rolar ----------------------------------------------- */
+
+/*
+ * Usa @keyframes (fill-mode: backwards) em vez de transition, pra não brigar
+ * com as transitions de hover dos cards. O atraso vem de --reveal-delay.
+ */
+.reveal:not(.is-visible) {
+  opacity: 0;
+}
+
+.reveal.is-visible {
+  animation: reveal-up 1.1s var(--ease-out) var(--reveal-delay, 0ms) backwards;
+}
+
+.reveal--right.is-visible {
+  animation-name: reveal-right;
+}
+
+.reveal--zoom.is-visible {
+  animation-name: reveal-zoom;
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+}
+
+@keyframes reveal-right {
+  from {
+    opacity: 0;
+    transform: translateX(120px);
+  }
+}
+
+@keyframes reveal-zoom {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.94);
+  }
+}
+
+/* Título entra um pouco depois do eyebrow */
+.reveal.is-visible .section-title {
+  animation: reveal-up 1.2s var(--ease-out) 0.1s backwards;
 }
 
 /* ---------- Base de layout ------------------------------------------------ */
@@ -161,7 +293,7 @@ a:hover .wordmark__tag:last-child {
 
 .eyebrow {
   font-size: clamp(17px, 1.6vw, 21px);
-  font-weight: 600;
+  font-weight: 300;
   color: var(--gray);
   margin-bottom: 10px;
 }
@@ -173,7 +305,7 @@ a:hover .wordmark__tag:last-child {
 .section-title {
   font-size: clamp(40px, 6.4vw, 80px);
   line-height: 1.05;
-  font-weight: 700;
+  font-weight: 300;
   letter-spacing: -0.03em;
 }
 
@@ -181,7 +313,7 @@ a:hover .wordmark__tag:last-child {
   font-size: clamp(19px, 2vw, 24px);
   line-height: 1.4;
   color: var(--gray);
-  font-weight: 500;
+  font-weight: 300;
 }
 
 .section--dark .section-lead {
@@ -210,7 +342,7 @@ a:hover .wordmark__tag:last-child {
   background: var(--black);
   color: var(--white);
   font-size: 17px;
-  font-weight: 500;
+  font-weight: 300;
   letter-spacing: -0.01em;
   transition: transform 0.3s var(--ease-out), background 0.3s, opacity 0.3s;
 }
@@ -239,7 +371,7 @@ a:hover .wordmark__tag:last-child {
   align-items: center;
   gap: 4px;
   font-size: 17px;
-  font-weight: 500;
+  font-weight: 300;
 }
 
 .link-arrow::after {
@@ -381,7 +513,7 @@ a:hover .link-arrow::after,
     gap: 0;
     padding: 16px 44px;
     font-size: 28px;
-    font-weight: 600;
+    font-weight: 300;
     visibility: hidden;
   }
 
@@ -411,76 +543,193 @@ a:hover .link-arrow::after,
 
 /* ---------- Hero ---------------------------------------------------------- */
 
+/* Mobile: texto ocupando a tela e a foto logo abaixo, sem prender na rolagem. */
 .hero {
   position: relative;
-  min-height: 100vh;
-  min-height: 100svh;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-  background: var(--black);
+  background: #111;
   color: var(--white);
+  --progress: 0;
 }
 
-.hero__mark {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  font-size: min(78vmin, 640px);
-  color: var(--white);
-  opacity: 0.09;
-}
-
-.hero__mark .logo {
-  stroke-width: 0.6;
+.hero__panel {
+  display: flex;
 }
 
 .hero__inner {
-  position: relative;
-  text-align: center;
-  padding: var(--nav-h) var(--gutter) 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: calc(var(--nav-h) + clamp(24px, 4vh, 48px)) clamp(22px, 5.5vw, 80px)
+    clamp(28px, 5vh, 56px);
 }
 
-.hero__eyebrow {
-  font-size: clamp(19px, 2.2vw, 28px);
-  font-weight: 600;
-  color: var(--gray-2);
+.hero__status {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 14px 7px 12px;
+  border-radius: 980px;
+  background: rgba(255, 255, 255, 0.07);
+  color: #d2d2d7;
+  font-size: 13px;
+  font-weight: 300;
+  animation: fade-up 1s var(--ease-out) 0.2s backwards;
+}
+
+.hero__dot {
+  position: relative;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #30d158;
+}
+
+.hero__dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: inherit;
+  animation: status-pulse 2.4s var(--ease-out) infinite;
+}
+
+@keyframes status-pulse {
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(3);
+  }
 }
 
 .hero__title {
-  font-size: clamp(56px, 12vw, 152px);
-  line-height: 1;
-  font-weight: 700;
-  letter-spacing: -0.045em;
-  margin: 8px 0 24px;
-  padding-bottom: 0.08em;
-  background: linear-gradient(180deg, #fff 35%, #8e8e93 110%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  margin: auto 0;
+  padding: 32px 0;
+  max-width: 13.5em;
+  font-size: clamp(36px, min(4.4vw, 7.6vh), 72px);
+  line-height: 1.12;
+  font-weight: 300;
+  letter-spacing: -0.025em;
+}
+
+.hero__word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.hero__char {
+  display: inline-block;
+  animation: char-in 0.9s var(--ease-out) calc(0.35s + var(--c) * 22ms) backwards;
+}
+
+@keyframes char-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.28em);
+    filter: blur(10px);
+  }
+}
+
+.hero__body {
+  animation: fade-up 1.2s var(--ease-out) 1.5s backwards;
 }
 
 .hero__subtitle {
-  font-size: clamp(19px, 2.2vw, 28px);
-  line-height: 1.3;
-  font-weight: 500;
+  max-width: 26em;
+  margin-bottom: 28px;
+  font-size: clamp(17px, 1.5vw, 21px);
+  line-height: 1.4;
   color: #a1a1a6;
-  max-width: 760px;
-  margin: 0 auto;
 }
 
-.hero__actions {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 16px 32px;
-  margin-top: 40px;
+.hero__links {
+  margin-top: clamp(32px, 7vh, 72px);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--gray-2);
+  animation: fade-up 1.2s var(--ease-out) 1.7s backwards;
 }
 
-.hero .link-arrow {
+.hero__links a {
   color: var(--white);
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.35);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.3s;
+}
+
+.hero__links a:hover {
+  text-decoration-color: currentColor;
+}
+
+/* A foto abre a partir da borda direita enquanto a imagem assenta. */
+.hero__photo {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: #efe3d3;
+  animation: photo-in 1.5s var(--ease-out) 0.15s backwards;
+}
+
+.hero__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 20%;
+  transform-origin: 50% 30%;
+  scale: calc(1 + var(--progress) * 0.1);
+  animation: photo-settle 1.9s var(--ease-out) 0.15s backwards;
+}
+
+@keyframes photo-in {
+  from {
+    clip-path: inset(0 0 0 100%);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes photo-settle {
+  from {
+    transform: scale(1.18);
+  }
+}
+
+/* Desktop: metade texto, metade foto, presos na tela durante a rolagem. */
+@media (min-width: 900px) {
+  .hero {
+    height: 170vh;
+  }
+
+  .hero__sticky {
+    position: sticky;
+    top: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100vh;
+    height: 100svh;
+    min-height: 560px;
+    overflow: hidden;
+  }
+
+  .hero__inner {
+    min-height: 0;
+    opacity: calc(1 - var(--progress) * 1.8);
+    transform: translateY(calc(var(--progress) * -72px));
+    will-change: transform, opacity;
+  }
+
+  .hero__photo {
+    aspect-ratio: auto;
+    min-height: 0;
+  }
+}
+
+/* Enquanto a splash cobre a tela, segura as animações de entrada do hero */
+html.is-splashing .hero * {
+  animation-play-state: paused;
 }
 
 /* ---------- Skills (bento) ------------------------------------------------ */
@@ -499,6 +748,12 @@ a:hover .link-arrow::after,
   border-radius: var(--radius-lg);
   background: var(--light);
   overflow: hidden;
+  transition: transform 0.6s var(--ease-out), box-shadow 0.6s var(--ease-out);
+}
+
+.tile:hover {
+  transform: scale(1.015);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
 }
 
 .tile--dark {
@@ -509,12 +764,17 @@ a:hover .link-arrow::after,
 .tile__icon {
   font-size: 44px;
   margin-bottom: auto;
+  transition: transform 0.6s var(--ease-out);
+}
+
+.tile:hover .tile__icon {
+  transform: scale(1.12) rotate(-4deg);
 }
 
 .tile__name {
   margin-top: 48px;
   font-size: clamp(28px, 3vw, 40px);
-  font-weight: 700;
+  font-weight: 300;
   letter-spacing: -0.03em;
   line-height: 1.1;
 }
@@ -523,7 +783,7 @@ a:hover .link-arrow::after,
   margin-top: 8px;
   font-size: 17px;
   color: var(--gray);
-  font-weight: 500;
+  font-weight: 300;
   max-width: 420px;
 }
 
@@ -534,7 +794,7 @@ a:hover .link-arrow::after,
 .tile__tags {
   margin-top: 20px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 300;
   color: var(--ink);
 }
 
@@ -553,11 +813,16 @@ a:hover .link-arrow::after,
 }
 
 .tile__stack svg {
-  transition: color 0.3s;
+  transition: color 0.4s, transform 0.6s var(--ease-out);
 }
 
 .tile:hover .tile__stack svg {
   color: var(--white);
+  transform: translateY(-4px);
+}
+
+.tile:hover .tile__stack svg:nth-child(2) {
+  transition-delay: 0.06s;
 }
 
 @media (min-width: 735px) {
@@ -649,12 +914,14 @@ a:hover .link-arrow::after,
   overflow: hidden;
   isolation: isolate;
   clip-path: inset(0 round var(--radius-lg));
-  opacity: 0.55;
-  transition: opacity 0.4s;
+  opacity: 0.45;
+  transform: scale(0.96);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
 }
 
 .project.is-active {
   opacity: 1;
+  transform: none;
 }
 
 .project__media {
@@ -673,12 +940,16 @@ a:hover .link-arrow::after,
   object-fit: cover;
   object-position: top center;
   filter: grayscale(1);
-  transition: filter 0.5s;
+  transition: transform 1.2s var(--ease-out), filter 0.8s var(--ease-out);
 }
 
 .project:hover .project__media img,
 .project.is-active .project__media img {
   filter: grayscale(0);
+}
+
+.project:hover .project__media img {
+  transform: scale(1.04);
 }
 
 .project--icon .project__media {
@@ -695,20 +966,24 @@ a:hover .link-arrow::after,
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
 }
 
+.project--icon:hover .project__media img {
+  transform: scale(1.08) translateY(-6px);
+}
+
 .project__body {
   padding: 32px 36px 36px;
 }
 
 .project__role {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 300;
   color: var(--gray-2);
 }
 
 .project__name {
   margin-top: 4px;
   font-size: clamp(28px, 3vw, 36px);
-  font-weight: 700;
+  font-weight: 300;
   letter-spacing: -0.03em;
   line-height: 1.1;
 }
@@ -716,7 +991,7 @@ a:hover .link-arrow::after,
 .project__desc {
   margin: 10px 0 18px;
   color: #a1a1a6;
-  font-weight: 500;
+  font-weight: 300;
   max-width: 520px;
 }
 
@@ -798,14 +1073,14 @@ a:hover .link-arrow::after,
 
 .job__period {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 300;
   color: var(--gray);
   padding-top: 6px;
 }
 
 .job__role {
   font-size: clamp(24px, 2.6vw, 32px);
-  font-weight: 700;
+  font-weight: 300;
   letter-spacing: -0.025em;
   line-height: 1.15;
 }
@@ -814,18 +1089,18 @@ a:hover .link-arrow::after,
   margin-top: 4px;
   font-size: 15px;
   color: var(--gray);
-  font-weight: 500;
+  font-weight: 300;
 }
 
 .job__desc {
   color: var(--gray);
-  font-weight: 500;
+  font-weight: 300;
 }
 
 .job__tags {
   margin-top: 12px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 300;
 }
 
 @media (min-width: 860px) {
@@ -850,14 +1125,14 @@ a:hover .link-arrow::after,
 
 .edu-card__period {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 300;
   color: var(--gray);
 }
 
 .edu-card__school {
   margin-top: 12px;
   font-size: clamp(48px, 7vw, 72px);
-  font-weight: 700;
+  font-weight: 300;
   letter-spacing: -0.04em;
   line-height: 1;
 }
@@ -865,19 +1140,20 @@ a:hover .link-arrow::after,
 .edu-card__course {
   margin-top: 10px;
   font-size: 21px;
-  font-weight: 600;
+  font-weight: 300;
 }
 
 .edu-card__desc {
   margin: 20px auto 0;
   max-width: 520px;
   color: var(--gray);
-  font-weight: 500;
+  font-weight: 300;
 }
 
 /* ---------- Contato ------------------------------------------------------- */
 
 .contact {
+  --progress: 0.5;
   text-align: center;
   overflow: hidden;
 }
@@ -887,7 +1163,7 @@ a:hover .link-arrow::after,
   flex-direction: column;
   font-size: clamp(64px, 14vw, 184px);
   line-height: 0.95;
-  font-weight: 700;
+  font-weight: 300;
   letter-spacing: -0.05em;
   margin-bottom: 48px;
 }
@@ -900,6 +1176,15 @@ a:hover .link-arrow::after,
   background-clip: text;
   color: transparent;
   padding-bottom: 0.06em;
+  will-change: transform;
+}
+
+.contact__title span:first-child {
+  transform: translateX(calc((var(--progress) - 0.5) * 40vw));
+}
+
+.contact__title span:last-child {
+  transform: translateX(calc((var(--progress) - 0.5) * -40vw));
 }
 
 .contact__actions {
@@ -922,13 +1207,14 @@ a:hover .link-arrow::after,
   border: 1px solid var(--hairline-dark);
   color: #e8e8ed;
   font-size: 15px;
-  font-weight: 500;
-  transition: background 0.3s, border-color 0.3s;
+  font-weight: 300;
+  transition: background 0.3s, border-color 0.3s, transform 0.3s var(--ease-out);
 }
 
 .contact__socials a:hover {
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
 }
 
 .contact__socials svg {
@@ -955,7 +1241,7 @@ a:hover .link-arrow::after,
 
 .resume__title {
   font-size: clamp(32px, 4vw, 48px);
-  font-weight: 700;
+  font-weight: 300;
   letter-spacing: -0.03em;
   line-height: 1.1;
 }
@@ -963,7 +1249,7 @@ a:hover .link-arrow::after,
 .resume__lead {
   margin-top: 8px;
   color: var(--gray);
-  font-weight: 500;
+  font-weight: 300;
   max-width: 440px;
 }
 
@@ -1010,5 +1296,31 @@ a:hover .link-arrow::after,
   *::before,
   *::after {
     transition: none !important;
+    animation: none !important;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+  }
+
+  .hero {
+    height: auto;
+  }
+
+  .hero__sticky {
+    position: static;
+  }
+
+  .hero__inner {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero__photo img {
+    scale: 1;
+  }
+
+  .contact__title span {
+    transform: none !important;
   }
 }

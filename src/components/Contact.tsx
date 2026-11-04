@@ -1,16 +1,19 @@
-const EMAIL = "brunotaveiradasilva@gmail.com";
-const GITHUB = "https://github.com/brunotaveiradasilva";
-const LINKEDIN = "https://www.linkedin.com/in/bruno-taveira/";
+import { useReveal } from "../hooks/useReveal";
+import { useScrollProgress } from "../hooks/useScrollProgress";
+import { EMAIL, GITHUB, LINKEDIN } from "../links";
 
 export function Contact() {
+  const scroll = useScrollProgress<HTMLElement>("pass");
+  const { ref, className } = useReveal<HTMLDivElement>();
+
   return (
-    <section className="section section--dark contact" id="contato">
+    <section ref={scroll} className="section section--dark contact" id="contato">
       <div className="container">
         <h2 className="contact__title" aria-label="Vamos conversar.">
           <span aria-hidden="true">Vamos</span>
           <span aria-hidden="true">conversar.</span>
         </h2>
-        <div className="contact__body">
+        <div ref={ref} className={`contact__body ${className}`}>
           <p className="section-lead">
             Aberto a projetos, colaborações e oportunidades.
           </p>

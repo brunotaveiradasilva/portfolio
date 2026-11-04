@@ -1,3 +1,5 @@
+import { useReveal } from "../hooks/useReveal";
+
 type Job = {
   role: string;
   company: string;
@@ -35,10 +37,12 @@ const JOBS: Job[] = [
 ];
 
 export function Experience() {
+  const head = useReveal<HTMLDivElement>();
+
   return (
     <section className="section" id="experiencia">
       <div className="container">
-        <div className="section-head">
+        <div ref={head.ref} className={`section-head ${head.className}`}>
           <p className="eyebrow">Experiência</p>
           <h2 className="section-title">Trajetória profissional.</h2>
         </div>
@@ -54,8 +58,10 @@ export function Experience() {
 }
 
 function JobRow({ job }: { job: Job }) {
+  const { ref, className } = useReveal<HTMLLIElement>();
+
   return (
-    <li className="job">
+    <li ref={ref} className={`job ${className}`}>
       <p className="job__period">{job.period}</p>
       <div className="job__main">
         <h3 className="job__role">{job.role}</h3>

@@ -1,26 +1,84 @@
-import { Logo } from "./Logo";
+import type { CSSProperties } from "react";
+import { useScrollProgress } from "../hooks/useScrollProgress";
+import { CV_URL, GITHUB, LINKEDIN } from "../links";
+import portrait from "../assets/bruno-taveira.webp";
 
-/** Abertura: nome, função e chamada, com o monograma </> ao fundo. */
+const TITLE = "Bruno Taveira, desenvolvedor full stack.";
+
+/**
+ * Abertura dividida: texto à esquerda e foto à direita. O título entra letra
+ * por letra e a foto abre a partir da borda. Ao rolar, o texto some e a foto
+ * cresce devagar enquanto o bloco fica preso na tela.
+ */
 export function Hero() {
+  const ref = useScrollProgress<HTMLElement>("sticky");
+  let index = 0;
+
   return (
-    <header className="hero" id="top">
-      <div className="hero__mark" aria-hidden="true">
-        <Logo />
-      </div>
-      <div className="hero__inner">
-        <p className="hero__eyebrow">Desenvolvedor full stack</p>
-        <h1 className="hero__title">Bruno Taveira.</h1>
-        <p className="hero__subtitle">
-          Foco em back-end com Java e Spring Boot.
-          <br className="hide-sm" /> Do banco de dados à interface.
-        </p>
-        <div className="hero__actions">
-          <a className="btn" href="#projetos">
-            Ver projetos
-          </a>
-          <a className="link-arrow" href="#contato">
-            Entrar em contato
-          </a>
+    <header ref={ref} className="hero" id="top">
+      <div className="hero__sticky">
+        <div className="hero__panel">
+          <div className="hero__inner">
+            <p className="hero__status">
+              <span className="hero__dot" aria-hidden="true" />
+              Aberto a oportunidades
+            </p>
+
+            <h1 className="hero__title" aria-label={TITLE}>
+              {TITLE.split(" ").map((word, w) => (
+                <span key={w} aria-hidden="true">
+                  <span className="hero__word">
+                    {[...word].map((char, c) => (
+                      <span
+                        key={c}
+                        className="hero__char"
+                        style={{ "--c": index++ } as CSSProperties}
+                      >
+                        {char}
+                      </span>
+                    ))}
+                  </span>{" "}
+                </span>
+              ))}
+            </h1>
+
+            <div className="hero__body">
+              <p className="hero__subtitle">
+                APIs com Java e Spring Boot, do banco de dados à interface.
+              </p>
+              <a className="btn" href="#projetos">
+                Ver projetos
+              </a>
+            </div>
+
+            <p className="hero__links">
+              Me encontre no{" "}
+              <a href={GITHUB} target="_blank" rel="noreferrer">
+                GitHub
+              </a>{" "}
+              e no{" "}
+              <a href={LINKEDIN} target="_blank" rel="noreferrer">
+                LinkedIn
+              </a>
+              .
+              <br />
+              Baixe meu{" "}
+              <a href={CV_URL} download>
+                currículo
+              </a>{" "}
+              (PDF, 84 KB).
+            </p>
+          </div>
+        </div>
+
+        <div className="hero__photo">
+          <img
+            src={portrait}
+            alt="Bruno Taveira sorrindo, de camisa preta"
+            width={920}
+            height={1150}
+            fetchPriority="high"
+          />
         </div>
       </div>
     </header>
