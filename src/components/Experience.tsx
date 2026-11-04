@@ -34,12 +34,6 @@ const JOBS: Job[] = [
   },
 ];
 
-const STATS = [
-  { value: 2, suffix: " anos", label: "desenvolvendo apps web e mobile" },
-  { value: 4, suffix: "", label: "projetos publicados" },
-  { value: 2, suffix: "", label: "apps na Play Store" },
-];
-
 export function Experience() {
   return (
     <section className="section" id="experiencia">
@@ -47,18 +41,6 @@ export function Experience() {
         <div className="section-head">
           <p className="eyebrow">Experiência</p>
           <h2 className="section-title">Trajetória profissional.</h2>
-        </div>
-
-        <div className="stats">
-          {STATS.map((stat) => (
-            <div key={stat.label} className="stat">
-              <p className="stat__value">
-                {stat.value}
-                {stat.suffix}
-              </p>
-              <p className="stat__label">{stat.label}</p>
-            </div>
-          ))}
         </div>
 
         <ol className="jobs">

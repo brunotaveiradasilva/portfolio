@@ -93,8 +93,7 @@ export function Projects() {
     <section className="section section--dark projects" id="projetos">
       <div className="container">
         <div className="section-head">
-          <p className="eyebrow">Projetos</p>
-          <h2 className="section-title">Onde já coloquei a mão.</h2>
+          <h2 className="section-title">Projetos.</h2>
         </div>
       </div>
 

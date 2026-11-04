@@ -611,9 +611,45 @@ a:hover .link-arrow::after,
   }
 }
 
+/* Desktop: os cinco cards em uma única linha, por isso mais compactos. */
 @media (min-width: 1000px) {
   .bento {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+  }
+
+  .tile {
+    padding: 24px 20px;
+  }
+
+  .tile--wide {
+    grid-column: auto;
+  }
+
+  .tile__stack {
+    display: none;
+  }
+
+  /* Títulos alinhados no topo e tags na base, para os cards lerem como uma linha. */
+  .tile__icon {
+    font-size: 36px;
+    margin-bottom: 0;
+  }
+
+  .tile__name {
+    margin-top: 32px;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+  }
+
+  .tile__desc {
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+
+  .tile__tags {
+    margin-top: auto;
+    font-size: 13px;
   }
 }
 
@@ -788,38 +824,6 @@ a:hover .link-arrow::after,
 }
 
 /* ---------- Experiência --------------------------------------------------- */
-
-.stats {
-  display: grid;
-  gap: 40px;
-  margin-bottom: clamp(72px, 10vw, 120px);
-}
-
-.stat {
-  border-top: 1px solid var(--hairline);
-  padding-top: 24px;
-}
-
-.stat__value {
-  font-size: clamp(56px, 8vw, 96px);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.04em;
-  font-variant-numeric: tabular-nums;
-}
-
-.stat__label {
-  margin-top: 12px;
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--gray);
-}
-
-@media (min-width: 735px) {
-  .stats {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
 
 .jobs {
   list-style: none;
