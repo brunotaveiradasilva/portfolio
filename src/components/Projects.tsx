@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useReveal } from "../hooks/useReveal";
 import sulbiologicHubShot from "../assets/sulbiologic-hub.png";
 import prummoShot from "../assets/prummo-engenharia.jpg";
 import sauverIcon from "../assets/sauver-icon.png";
@@ -57,6 +58,8 @@ const PROJECTS: Project[] = [
 
 /** Galeria horizontal com snap, setas e paginação — o "Get the highlights". */
 export function Projects() {
+  const head = useReveal<HTMLDivElement>();
+  const rail = useReveal<HTMLDivElement>("right");
   const trackRef = useRef<HTMLUListElement | null>(null);
   const [active, setActive] = useState(0);
 
@@ -92,18 +95,20 @@ export function Projects() {
   return (
     <section className="section section--dark projects" id="projetos">
       <div className="container">
-        <div className="section-head">
+        <div ref={head.ref} className={`section-head ${head.className}`}>
           <h2 className="section-title">Projetos.</h2>
         </div>
       </div>
 
-      <ul ref={trackRef} className="gallery">
-        {PROJECTS.map((project, i) => (
-          <li key={project.name} data-index={i}>
-            <ProjectCard project={project} active={i === active} />
-          </li>
-        ))}
-      </ul>
+      <div ref={rail.ref} className={rail.className}>
+        <ul ref={trackRef} className="gallery">
+          {PROJECTS.map((project, i) => (
+            <li key={project.name} data-index={i}>
+              <ProjectCard project={project} active={i === active} />
+            </li>
+          ))}
+        </ul>
+      </div>
 
       <div className="container gallery__controls">
         <div className="gallery__dots" role="tablist" aria-label="Projetos">

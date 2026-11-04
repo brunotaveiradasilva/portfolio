@@ -1,3 +1,5 @@
+import { useReveal } from "../hooks/useReveal";
+
 const ACADEMIC = {
   school: "UCDB",
   course: "Análise e Desenvolvimento de Sistemas",
@@ -7,15 +9,21 @@ const ACADEMIC = {
 };
 
 export function Education() {
+  const head = useReveal<HTMLDivElement>();
+  const body = useReveal<HTMLDivElement>("zoom");
+
   return (
     <section className="section section--light" id="educacao">
       <div className="container">
-        <div className="section-head section-head--center">
+        <div
+          ref={head.ref}
+          className={`section-head section-head--center ${head.className}`}
+        >
           <p className="eyebrow">Educação</p>
           <h2 className="section-title">Formação acadêmica.</h2>
         </div>
 
-        <div className="edu">
+        <div ref={body.ref} className={`edu ${body.className}`}>
           <div className="edu-card">
             <span className="edu-card__period">
               {ACADEMIC.period} · {ACADEMIC.status}

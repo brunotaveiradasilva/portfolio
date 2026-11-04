@@ -1,10 +1,13 @@
-const CV_URL = "./curriculo-bruno-taveira.pdf";
+import { useReveal } from "../hooks/useReveal";
+import { CV_URL } from "../links";
 
 export function Resume() {
+  const { ref, className } = useReveal<HTMLDivElement>("zoom");
+
   return (
     <section className="section resume" id="curriculo">
       <div className="container">
-        <div className="resume__card">
+        <div ref={ref} className={`resume__card ${className}`}>
           <div>
             <p className="eyebrow">Currículo</p>
             <h2 className="resume__title">Tudo em um PDF.</h2>

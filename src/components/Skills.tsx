@@ -15,6 +15,8 @@ import {
   SiSpringboot,
   SiVuedotjs,
 } from "react-icons/si";
+import type { CSSProperties } from "react";
+import { useReveal } from "../hooks/useReveal";
 
 type Skill = {
   icon: IconType;
@@ -69,16 +71,18 @@ const SKILLS: Skill[] = [
 ];
 
 export function Skills() {
+  const head = useReveal<HTMLDivElement>();
+
   return (
     <section className="section" id="skills">
       <div className="container">
-        <div className="section-head">
+        <div ref={head.ref} className={`section-head ${head.className}`}>
           <h2 className="section-title">Ferramentas.</h2>
         </div>
 
         <div className="bento">
-          {SKILLS.map((skill) => (
-            <SkillTile key={skill.name} skill={skill} />
+          {SKILLS.map((skill, i) => (
+            <SkillTile key={skill.name} skill={skill} delay={i * 80} />
           ))}
         </div>
       </div>
@@ -86,16 +90,20 @@ export function Skills() {
   );
 }
 
-function SkillTile({ skill }: { skill: Skill }) {
+function SkillTile({ skill, delay }: { skill: Skill; delay: number }) {
+  const { ref, className } = useReveal<HTMLDivElement>("zoom");
   const Icon = skill.icon;
 
   return (
     <article
+      ref={ref}
       className={[
         "tile",
         skill.dark ? "tile--dark" : "",
         skill.wide ? "tile--wide" : "",
+        className,
       ].join(" ")}
+      style={{ "--reveal-delay": `${delay}ms` } as CSSProperties}
     >
       <Icon className="tile__icon" aria-hidden="true" />
       <h3 className="tile__name">{skill.name}</h3>
