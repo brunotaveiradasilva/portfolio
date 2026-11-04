@@ -8,6 +8,7 @@ import {
   SiHtml5,
   SiJavascript,
   SiMysql,
+  SiNextdotjs,
   SiOpenjdk,
   SiReact,
   SiRubyonrails,
@@ -40,8 +41,8 @@ const SKILLS: Skill[] = [
     icon: SiReact,
     name: "Front-end",
     desc: "Interfaces web modernas, consumindo APIs RESTful.",
-    stack: [SiReact, SiVuedotjs, SiJavascript, SiHtml5, SiCss],
-    tags: ["React", "Vue.js", "JavaScript", "HTML", "CSS"],
+    stack: [SiReact, SiNextdotjs, SiVuedotjs, SiJavascript, SiHtml5, SiCss],
+    tags: ["React", "Next.js", "Vue.js", "JavaScript", "HTML", "CSS"],
   },
   {
     icon: SiMysql,
@@ -72,12 +73,7 @@ export function Skills() {
     <section className="section" id="skills">
       <div className="container">
         <div className="section-head">
-          <p className="eyebrow">Skills</p>
-          <h2 className="section-title">
-            As ferramentas
-            <br />
-            que uso todo dia.
-          </h2>
+          <h2 className="section-title">Ferramentas.</h2>
         </div>
 
         <div className="bento">
