@@ -636,14 +636,6 @@ a:hover .link-arrow::after,
   animation: fade-up 1.2s var(--ease-out) 1.5s backwards;
 }
 
-.hero__subtitle {
-  max-width: 26em;
-  margin-bottom: 28px;
-  font-size: clamp(17px, 1.5vw, 21px);
-  line-height: 1.4;
-  color: #a1a1a6;
-}
-
 .hero__links {
   margin-top: clamp(32px, 7vh, 72px);
   font-size: 13px;
@@ -668,7 +660,7 @@ a:hover .link-arrow::after,
 .hero__photo {
   aspect-ratio: 4 / 5;
   overflow: hidden;
-  background: #efe3d3;
+  background: #111;
   animation: photo-in 1.5s var(--ease-out) 0.15s backwards;
 }
 
