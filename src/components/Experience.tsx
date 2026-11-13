@@ -43,7 +43,6 @@ export function Experience() {
     <section className="section" id="experiencia">
       <div className="container">
         <div ref={head.ref} className={`section-head ${head.className}`}>
-          <p className="eyebrow">Experiência</p>
           <h2 className="section-title">Trajetória profissional.</h2>
         </div>
 
