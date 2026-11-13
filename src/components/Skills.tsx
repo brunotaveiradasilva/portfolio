@@ -19,50 +19,39 @@ import type { CSSProperties } from "react";
 import { useReveal } from "../hooks/useReveal";
 
 type Skill = {
-  icon: IconType;
   name: string;
   desc: string;
+  /** Logos das tecnologias principais, discretos ao lado do nome. */
   stack: IconType[];
   tags: string[];
-  /** Tile escuro no bento, pra dar ritmo ao grid. */
-  dark?: boolean;
-  wide?: boolean;
 };
 
 const SKILLS: Skill[] = [
   {
-    icon: SiOpenjdk,
     name: "Back-end",
     desc: "APIs RESTful e regras de negócio com Java e Spring Boot, com foco em código limpo, testado e bem estruturado.",
     stack: [SiOpenjdk, SiSpringboot, SiRubyonrails],
     tags: ["Java", "Spring Boot", "APIs REST", "Ruby on Rails"],
-    dark: true,
-    wide: true,
   },
   {
-    icon: SiReact,
     name: "Front-end",
     desc: "Interfaces web modernas, consumindo APIs RESTful.",
     stack: [SiReact, SiNextdotjs, SiVuedotjs, SiJavascript, SiHtml5, SiCss],
     tags: ["React", "Next.js", "Vue.js", "JavaScript", "HTML", "CSS"],
   },
   {
-    icon: SiMysql,
     name: "Dados",
     desc: "Modelagem, consultas e dashboards para indicadores de negócio.",
     stack: [SiMysql],
     tags: ["MySQL", "Power BI", "Excel avançado"],
-    dark: true,
   },
   {
-    icon: SiFlutter,
     name: "Mobile",
     desc: "Apps multiplataforma para Android e iOS.",
     stack: [SiFlutter, SiDart],
     tags: ["Flutter", "Dart"],
   },
   {
-    icon: SiGit,
     name: "Ferramentas",
     desc: "Versionamento e organização de trabalho em times ágeis.",
     stack: [SiGit, SiGithub],
@@ -80,42 +69,33 @@ export function Skills() {
           <h2 className="section-title">Ferramentas.</h2>
         </div>
 
-        <div className="bento">
+        <ul className="specs">
           {SKILLS.map((skill, i) => (
-            <SkillTile key={skill.name} skill={skill} delay={i * 80} />
+            <SkillItem key={skill.name} skill={skill} delay={(i % 3) * 70} />
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );
 }
 
-function SkillTile({ skill, delay }: { skill: Skill; delay: number }) {
-  const { ref, className } = useReveal<HTMLDivElement>("zoom");
-  const Icon = skill.icon;
+function SkillItem({ skill, delay }: { skill: Skill; delay: number }) {
+  const { ref, className } = useReveal<HTMLLIElement>();
 
   return (
-    <article
+    <li
       ref={ref}
-      className={[
-        "tile",
-        skill.dark ? "tile--dark" : "",
-        skill.wide ? "tile--wide" : "",
-        className,
-      ].join(" ")}
+      className={`spec ${className}`}
       style={{ "--reveal-delay": `${delay}ms` } as CSSProperties}
     >
-      <Icon className="tile__icon" aria-hidden="true" />
-      <h3 className="tile__name">{skill.name}</h3>
-      <p className="tile__desc">{skill.desc}</p>
-      <p className="tile__tags">{skill.tags.join(" · ")}</p>
-      {skill.wide ? (
-        <div className="tile__stack" aria-hidden="true">
-          {skill.stack.map((StackIcon, j) => (
-            <StackIcon key={j} />
-          ))}
-        </div>
-      ) : null}
-    </article>
+      <h3 className="spec__name">{skill.name}</h3>
+      <p className="spec__desc">{skill.desc}</p>
+      <span className="spec__stack" aria-hidden="true">
+        {skill.stack.map((Icon, j) => (
+          <Icon key={j} />
+        ))}
+      </span>
+      <p className="spec__tags">{skill.tags.join(" · ")}</p>
+    </li>
   );
 }

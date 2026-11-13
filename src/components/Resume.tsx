@@ -9,7 +9,6 @@ export function Resume() {
       <div className="container">
         <div ref={ref} className={`resume__card ${className}`}>
           <div>
-            <p className="eyebrow">Currículo</p>
             <h2 className="resume__title">Tudo em um PDF.</h2>
             <p className="resume__lead">
               Experiências, formação e competências técnicas, em um único

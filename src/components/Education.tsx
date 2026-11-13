@@ -19,7 +19,6 @@ export function Education() {
           ref={head.ref}
           className={`section-head section-head--center ${head.className}`}
         >
-          <p className="eyebrow">Educação</p>
           <h2 className="section-title">Formação acadêmica.</h2>
         </div>
 
