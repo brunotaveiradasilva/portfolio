@@ -1,5 +1,5 @@
-import { useReveal } from "../hooks/useReveal";
-import { CV_URL } from "../links";
+import { useReveal } from "../shared/hooks/useReveal";
+import { CV_URL } from "../shared/lib/links";
 
 export function Resume() {
   const { ref, className } = useReveal<HTMLDivElement>("zoom");

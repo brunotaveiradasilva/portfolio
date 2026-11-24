@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Logo, Wordmark } from "./Logo";
+import { Logo, Wordmark } from "../shared/components/Logo";
 
 const STORAGE_KEY = "splash-seen";
 

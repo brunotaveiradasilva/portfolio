@@ -16,7 +16,7 @@ import {
   SiVuedotjs,
 } from "react-icons/si";
 import type { CSSProperties } from "react";
-import { useReveal } from "../hooks/useReveal";
+import { useReveal } from "../shared/hooks/useReveal";
 
 type Skill = {
   name: string;

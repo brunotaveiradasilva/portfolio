@@ -1,4 +1,4 @@
-import { useReveal } from "../hooks/useReveal";
+import { useReveal } from "../shared/hooks/useReveal";
 
 type Job = {
   role: string;

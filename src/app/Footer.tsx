@@ -1,4 +1,4 @@
-import { Wordmark } from "./Logo";
+import { Wordmark } from "../shared/components/Logo";
 
 export function Footer() {
   return (

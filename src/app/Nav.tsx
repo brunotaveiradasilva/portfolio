@@ -1,5 +1,5 @@
 import { useEffect, useState, type CSSProperties } from "react";
-import { Wordmark } from "./Logo";
+import { Wordmark } from "../shared/components/Logo";
 
 const LINKS = [
   { href: "#projetos", label: "Projetos" },
