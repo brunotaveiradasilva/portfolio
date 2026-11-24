@@ -3,7 +3,7 @@ import { useScrollProgress } from "../shared/hooks/useScrollProgress";
 import { CV_URL, GITHUB, LINKEDIN } from "../shared/lib/links";
 import portrait from "../assets/bruno-taveira.webp";
 
-const TITLE = "Bruno Taveira, desenvolvedor full stack.";
+const TITLE = "Bruno Taveira, Software Engineer.";
 
 /**
  * Abertura dividida: texto à esquerda e foto à direita. O título entra letra
