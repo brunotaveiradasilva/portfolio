@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
-import { useScrollProgress } from "../hooks/useScrollProgress";
-import { CV_URL, GITHUB, LINKEDIN } from "../links";
+import { useScrollProgress } from "../shared/hooks/useScrollProgress";
+import { CV_URL, GITHUB, LINKEDIN } from "../shared/lib/links";
 import portrait from "../assets/bruno-taveira.webp";
 
 const TITLE = "Bruno Taveira, desenvolvedor full stack.";

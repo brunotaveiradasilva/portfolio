@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useReveal } from "../hooks/useReveal";
+import { useReveal } from "../shared/hooks/useReveal";
 import sulbiologicHubShot from "../assets/sulbiologic-hub.png";
 import prummoShot from "../assets/prummo-engenharia.jpg";
 import sauverIcon from "../assets/sauver-icon.png";

@@ -1,6 +1,6 @@
-import { useReveal } from "../hooks/useReveal";
-import { useScrollProgress } from "../hooks/useScrollProgress";
-import { EMAIL, GITHUB, LINKEDIN } from "../links";
+import { useReveal } from "../shared/hooks/useReveal";
+import { useScrollProgress } from "../shared/hooks/useScrollProgress";
+import { EMAIL, GITHUB, LINKEDIN } from "../shared/lib/links";
 
 export function Contact() {
   const scroll = useScrollProgress<HTMLElement>("pass");

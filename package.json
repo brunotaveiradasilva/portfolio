@@ -2,6 +2,8 @@
   "name": "portfolio",
   "private": true,
   "version": "0.0.0",
+  "description": "Portfólio pessoal de Bruno Taveira: projetos, skills, experiência e currículo.",
+  "homepage": "https://brunotaveiradasilva.github.io/portfolio/",
   "type": "module",
   "scripts": {
     "dev": "vite",
